@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Aelix Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-dark">
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand"><a href="index.html">Aelix Studios</a></div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="blog.html">Blog</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">☀️</button>
+        <select id="langSelector" class="lang-select" aria-label="Select language">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+        <a class="cta-button" href="mailto:hello@aelixstudios.com">Contact</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">Writerly notes</span>
+          <h1>News, ideas, and student-focused product thinking.</h1>
+          <p>Follow our progress and discover the thinking behind Aelix Studios’ first mobile application.</p>
+        </div>
+      </section>
+
+      <section class="grid-section">
+        <div class="section-header">
+          <p class="section-pretitle">Latest posts</p>
+          <h2>Updates from our launch journey.</h2>
+        </div>
+        <div class="grid-cards">
+          <article class="card">
+            <span class="card-tag">Launch</span>
+            <h3>Building a student app with empathy</h3>
+            <p>A behind-the-scenes look at how we blend friendly design with premium mobile interactions for learners.</p>
+            <a class="card-link" href="#">Read more</a>
+          </article>
+          <article class="card">
+            <span class="card-tag">Design</span>
+            <h3>Why Apple-esque simplicity matters</h3>
+            <p>How clean spacing, calm layouts, and thoughtful details help students feel confident using a new app.</p>
+            <a class="card-link" href="#">Read more</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="feature-section">
+        <div class="feature-card">
+          <p class="section-pretitle">Stay connected</p>
+          <h2>More stories are coming soon.</h2>
+          <p>We’ll share product updates, launch milestones, and the student-centered research behind each release.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-bar">
+      <p>© 2026 Aelix Studios — Student-first mobile product design.</p>
+    </footer>
+  </div>
+  <script src="scripts.js" defer></script>
+</body>
+</html>

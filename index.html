@@ -3,114 +3,117 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aelix Studio</title>
+  <title>Aelix Studios | Student-first mobile products</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="theme-dark">
   <div class="page-shell">
     <header class="topbar">
-      <div class="brand">Aelix Studio</div>
+      <div class="brand"><a href="index.html">Aelix Studios</a></div>
       <nav class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="#projects">Projects</a>
+        <a href="blog.html">Blog</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="cta-button" href="#contact">Get in Touch</a>
+      <div class="header-actions">
+        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">☀️</button>
+        <select id="langSelector" class="lang-select" aria-label="Select language">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+        <a class="cta-button" href="#contact">Contact</a>
+      </div>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <span class="eyebrow">Design x Innovation</span>
-          <h1>Create modern digital experiences with precision and style.</h1>
-          <p>We craft elegant websites, strong brand identities, and polished digital products that connect with audiences and drive results.</p>
+          <span class="eyebrow" data-i18n="tagline">Made for students by students</span>
+          <h1 data-i18n="headline">Aelix Studios builds premium mobile experiences for learners.</h1>
+          <p data-i18n="intro">We design friendly, creative mobile applications that help students stay organized, focused, and inspired.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#work">See Projects</a>
-            <a class="button secondary" href="#about">Our Approach</a>
+            <a class="button primary" href="#projects" data-i18n="viewProject">View Project</a>
+            <a class="button secondary" href="about.html" data-i18n="aboutTeam">About the team</a>
           </div>
         </div>
+
         <div class="hero-visual">
           <div class="visual-card">
-            <div class="visual-card__tag">Featured</div>
-            <h2>Studio Launch</h2>
-            <p>Strategy-led design systems that feel premium and perform beautifully across screens.</p>
+            <div class="visual-card__tag">Mobile apps</div>
+            <h2 data-i18n="heroProjectTitle">Student-first tools</h2>
+            <p data-i18n="heroProjectCopy">Launching the first Aelix app to make campus life easier and more productive.</p>
           </div>
         </div>
       </section>
 
-      <section id="work" class="grid-section">
+      <section id="projects" class="grid-section">
         <div class="section-header">
-          <p class="section-pretitle">Selected Work</p>
-          <h2>Creative outcomes built to elevate brands.</h2>
+          <p class="section-pretitle" data-i18n="projectsTitle">Project spotlight</p>
+          <h2 data-i18n="projectsSubtitle">One mobile application, built to help students.</h2>
         </div>
         <div class="grid-cards">
           <article class="card">
-            <span class="card-tag">Digital</span>
-            <h3>Brand refresh for an agency</h3>
-            <p>Bold aesthetics, purposeful messaging, and a refined customer experience.</p>
-          </article>
-          <article class="card">
-            <span class="card-tag">UX/UI</span>
-            <h3>Product launch platform</h3>
-            <p>Seamless onboarding with clean layouts and compelling interactions.</p>
-          </article>
-          <article class="card">
-            <span class="card-tag">Identity</span>
-            <h3>Visual system for startups</h3>
-            <p>Consistent brand language designed to scale across marketing channels.</p>
+            <span class="card-tag">Mobile App</span>
+            <h3>Aelix Study</h3>
+            <p>Our first mobile application designed to support student workflows, course planning, and creative collaboration.</p>
+            <a class="card-link" href="project-mobile-app.html" data-i18n="viewProject">View project</a>
           </article>
         </div>
       </section>
 
-      <section id="services" class="split-section">
+      <section id="blog" class="feature-section">
+        <div class="feature-card">
+          <p class="section-pretitle" data-i18n="blogTitle">News & insights</p>
+          <h2 data-i18n="blogSubtitle">Stories, updates, and student-led ideas.</h2>
+          <p>Read the latest on our mobile app launch, team progress, and the design thinking behind Aelix Studios.</p>
+          <a class="button primary" href="blog.html" data-i18n="visitBlog">Visit the blog</a>
+        </div>
+      </section>
+
+      <section id="about" class="split-section">
         <div>
-          <p class="section-pretitle">What we do</p>
-          <h2>Strategy, design, and polished execution.</h2>
-          <p>Combining craft and clarity to deliver websites and digital products that are both beautiful and purposeful.</p>
+          <p class="section-pretitle">About Aelix Studios</p>
+          <h2>Student-focused product design with a premium feel.</h2>
+          <p>We are two students building apps and digital experiences that make campus life more creative, organized, and rewarding.</p>
         </div>
         <div class="service-list">
           <div class="service-item">
-            <h3>Design Systems</h3>
-            <p>Modular interfaces, consistent components, and design language for every touchpoint.</p>
+            <h3>Mission</h3>
+            <p>Support students with tools created by students who understand how modern learning works.</p>
           </div>
           <div class="service-item">
-            <h3>Web Experiences</h3>
-            <p>Responsive, fast, and modern websites built to tell your story clearly.</p>
+            <h3>Approach</h3>
+            <p>Friendly, simple, and polished design with Apple-esque clarity and abstract visual energy.</p>
           </div>
           <div class="service-item">
-            <h3>Brand Direction</h3>
-            <p>Strategy, messaging, and visual frameworks that help you stand out.</p>
+            <h3>One project at a time</h3>
+            <p>We’re focused on a single mobile app launch today, with plans to expand when the first product lands.</p>
           </div>
-        </div>
-      </section>
-
-      <section id="about" class="feature-section">
-        <div class="feature-card">
-          <p class="section-pretitle">About us</p>
-          <h2>We believe in clean design and confident execution.</h2>
-          <p>Our work is driven by detail, human-centered thinking, and a commitment to polished outcomes. Every project is an opportunity to make something memorable.</p>
         </div>
       </section>
 
       <section id="contact" class="contact-section">
         <div class="contact-card">
           <div>
-            <p class="section-pretitle">Let’s collaborate</p>
-            <h2>Ready to start your next project?</h2>
-            <p>Reach out and we’ll help shape an experience that works for your audience.</p>
+            <p class="section-pretitle">Let’s talk</p>
+            <h2>Want to learn more or follow our launch?</h2>
+            <p>Join our mailing list or email us and we’ll keep you updated on new apps and student resources.</p>
           </div>
-          <a class="button primary" href="mailto:hello@aelixstudio.com">hello@aelixstudio.com</a>
+          <a class="button primary" href="mailto:hello@aelixstudios.com">hello@aelixstudios.com</a>
         </div>
       </section>
     </main>
 
     <footer class="footer-bar">
-      <p>© 2026 Aelix Studio — Crafted for modern brands.</p>
+      <p>© 2026 Aelix Studios — Student-first mobile product design.</p>
     </footer>
   </div>
+
+  <script src="scripts.js" defer></script>
 </body>
 </html>
