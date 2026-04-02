@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pnpm/
+
+# Package manager files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Build outputs
+dist/
+build/
+.next/
+.turbo/
+out/
+*.tsbuildinfo
+
+# Cache directories
+.cache/
+.vercel/
+.parcel-cache/
+
+# Environment files
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
