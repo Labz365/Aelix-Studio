@@ -3,76 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog | Aelix Studios</title>
+  <title>Journal | Aelix Studios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="theme-dark">
-  <div class="page-shell">
-    <header class="topbar">
-      <div class="brand"><a href="index.html">Aelix Studios</a></div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="blog.html">Blog</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">☀️</button>
-        <select id="langSelector" class="lang-select" aria-label="Select language">
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-        </select>
-        <a class="cta-button" href="mailto:hello@aelixstudios.com">Contact</a>
-      </div>
-    </header>
+<body>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <span class="eyebrow">Writerly notes</span>
-          <h1>News, ideas, and student-focused product thinking.</h1>
-          <p>Follow our progress and discover the thinking behind Aelix Studios’ first mobile application.</p>
-        </div>
-      </section>
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
 
-      <section class="grid-section">
-        <div class="section-header">
-          <p class="section-pretitle">Latest posts</p>
-          <h2>Updates from our launch journey.</h2>
-        </div>
-        <div class="grid-cards">
-          <article class="card">
-            <span class="card-tag">Launch</span>
-            <h3>Building a student app with empathy</h3>
-            <p>A behind-the-scenes look at how we blend friendly design with premium mobile interactions for learners.</p>
-            <a class="card-link" href="#">Read more</a>
-          </article>
-          <article class="card">
-            <span class="card-tag">Design</span>
-            <h3>Why Apple-esque simplicity matters</h3>
-            <p>How clean spacing, calm layouts, and thoughtful details help students feel confident using a new app.</p>
-            <a class="card-link" href="#">Read more</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="feature-section">
-        <div class="feature-card">
-          <p class="section-pretitle">Stay connected</p>
-          <h2>More stories are coming soon.</h2>
-          <p>We’ll share product updates, launch milestones, and the student-centered research behind each release.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer-bar">
-      <p>© 2026 Aelix Studios — Student-first mobile product design.</p>
-    </footer>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="mailto:hello@aelixstudios.com">Contact</a>
   </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" class="active">Journal</a>
+      <a href="mailto:hello@aelixstudios.com">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">
+        <div class="theme-btn-knob"></div>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div>
+      <span class="page-header-eyebrow reveal">Notes &amp; updates</span>
+      <h1 class="page-header-title reveal">Journal</h1>
+    </div>
+    <p class="page-header-sub reveal-left">
+      Product thinking, launch updates, and the design decisions behind what we build.
+    </p>
+  </div>
+
+  <!-- Journal entries -->
+  <section class="journal-section">
+
+    <a href="#" class="journal-item reveal">
+      <span class="journal-item-tag">Launch</span>
+      <div class="journal-item-body">
+        <h2 class="journal-item-title">Building a student app with empathy</h2>
+        <p class="journal-item-excerpt">A behind-the-scenes look at how we blend friendly design with premium mobile interactions — and why slowing down made us move further.</p>
+      </div>
+      <span class="journal-item-date">Mar 2026</span>
+    </a>
+
+    <a href="#" class="journal-item reveal" style="transition-delay:0.05s">
+      <span class="journal-item-tag">Design</span>
+      <div class="journal-item-body">
+        <h2 class="journal-item-title">Why simplicity is the hardest discipline</h2>
+        <p class="journal-item-excerpt">Clean spacing, calm layouts, and thoughtful details aren't defaults — they're the result of removing everything that isn't needed.</p>
+      </div>
+      <span class="journal-item-date">Feb 2026</span>
+    </a>
+
+    <a href="#" class="journal-item reveal" style="transition-delay:0.1s">
+      <span class="journal-item-tag">Process</span>
+      <div class="journal-item-body">
+        <h2 class="journal-item-title">Constraints as creative tools</h2>
+        <p class="journal-item-excerpt">Two students, one app, a fixed timeline. How working within limits clarified our thinking and sharpened every decision we made.</p>
+      </div>
+      <span class="journal-item-date">Jan 2026</span>
+    </a>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-title reveal">More stories <em>coming soon.</em></h2>
+    <a href="mailto:hello@aelixstudios.com" class="cta-btn reveal">
+      hello@aelixstudios.com
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+    </div>
+    <span class="footer-copy">© 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
+
   <script src="scripts.js" defer></script>
 </body>
 </html>

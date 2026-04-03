@@ -1,76 +1,89 @@
-const translations = {
-  en: {
-    tagline: 'Made for students by students',
-    headline: 'Aelix Studios builds premium mobile experiences for learners.',
-    intro: 'We design friendly, creative mobile applications that help students stay organized, focused, and inspired.',
-    viewProject: 'View Project',
-    aboutTeam: 'About the team',
-    heroProjectTitle: 'Student-first tools',
-    heroProjectCopy: 'Launching the first Aelix app to make campus life easier and more productive.',
-    projectsTitle: 'Project spotlight',
-    projectsSubtitle: 'One mobile application, built to help students.',
-    blogTitle: 'News & insights',
-    blogSubtitle: 'Stories, updates, and student-led ideas.',
-    visitBlog: 'Visit the blog'
-  },
-  es: {
-    tagline: 'Hecho para estudiantes por estudiantes',
-    headline: 'Aelix Studios crea experiencias móviles premium para aprendices.',
-    intro: 'Diseñamos aplicaciones móviles amigables y creativas que ayudan a los estudiantes a mantenerse organizados, concentrados e inspirados.',
-    viewProject: 'Ver proyecto',
-    aboutTeam: 'Sobre el equipo',
-    heroProjectTitle: 'Herramientas para estudiantes',
-    heroProjectCopy: 'Lanzando la primera aplicación de Aelix para facilitar la vida estudiantil.',
-    projectsTitle: 'Proyecto destacado',
-    projectsSubtitle: 'Una aplicación móvil, construida para ayudar a estudiantes.',
-    blogTitle: 'Noticias y reflexiones',
-    blogSubtitle: 'Historias, actualizaciones e ideas dirigidas por estudiantes.',
-    visitBlog: 'Visitar el blog'
-  }
-};
+// ── Custom cursor ──────────────────────────────────
+const ring = document.getElementById('cursorRing');
+const dot  = document.getElementById('cursorDot');
+if (ring && dot) {
+  let rx = 0, ry = 0, dx = 0, dy = 0;
+  let ringVisible = false;
 
-function setTheme(theme) {
-  document.body.classList.toggle('theme-light', theme === 'light');
-  document.body.classList.toggle('theme-dark', theme !== 'light');
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
-  }
-  localStorage.setItem('aelixTheme', theme);
-}
-
-function setLanguage(lang) {
-  const strings = translations[lang] || translations.en;
-  document.querySelectorAll('[data-i18n]').forEach((element) => {
-    const key = element.dataset.i18n;
-    if (strings[key]) {
-      element.textContent = strings[key];
+  document.addEventListener('mousemove', e => {
+    dx = e.clientX; dy = e.clientY;
+    dot.style.left = dx + 'px';
+    dot.style.top  = dy + 'px';
+    if (!ringVisible) {
+      ring.style.opacity = '1';
+      dot.style.opacity  = '1';
+      ringVisible = true;
     }
   });
-  localStorage.setItem('aelixLang', lang);
-  const selector = document.getElementById('langSelector');
-  if (selector) selector.value = lang;
+  document.addEventListener('mouseleave', () => {
+    ring.style.opacity = '0';
+    dot.style.opacity  = '0';
+    ringVisible = false;
+  });
+
+  (function animateCursor() {
+    rx += (dx - rx) * 0.14;
+    ry += (dy - ry) * 0.14;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('aelixTheme') || 'dark';
-  setTheme(savedTheme);
+// ── Dark / light mode ─────────────────────────────
+const body     = document.body;
+const themeBtn = document.getElementById('themeBtn');
 
-  const savedLang = localStorage.getItem('aelixLang') || 'en';
-  setLanguage(savedLang);
+const savedTheme = localStorage.getItem('aelixTheme');
+if (savedTheme === 'light') {
+  body.classList.remove('dark');
+} else {
+  body.classList.add('dark');
+}
 
-  const themeToggle = document.getElementById('themeToggle');
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const nextTheme = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
-      setTheme(nextTheme);
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    localStorage.setItem('aelixTheme', body.classList.contains('dark') ? 'dark' : 'light');
+  });
+}
+
+// ── Nav scroll ────────────────────────────────────
+const nav = document.getElementById('mainNav');
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+}
+
+// ── Mobile menu ───────────────────────────────────
+const hamburger  = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
     });
-  }
+  });
+}
 
-  const langSelector = document.getElementById('langSelector');
-  if (langSelector) {
-    langSelector.addEventListener('change', (event) => {
-      setLanguage(event.target.value);
-    });
-  }
-});
+// ── Scroll reveal ─────────────────────────────────
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08, rootMargin: '-5% 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));

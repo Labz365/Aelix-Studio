@@ -6,113 +6,130 @@
   <title>Aelix Studios | Student-first mobile products</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="theme-dark">
-  <div class="page-shell">
-    <header class="topbar">
-      <div class="brand"><a href="index.html">Aelix Studios</a></div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="#projects">Projects</a>
-        <a href="blog.html">Blog</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="header-actions">
-        <button id="themeToggle" class="icon-button" aria-label="Toggle theme">☀️</button>
-        <select id="langSelector" class="lang-select" aria-label="Select language">
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-        </select>
-        <a class="cta-button" href="#contact">Contact</a>
-      </div>
-    </header>
+<body>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <span class="eyebrow" data-i18n="tagline">Made for students by students</span>
-          <h1 data-i18n="headline">Aelix Studios builds premium mobile experiences for learners.</h1>
-          <p data-i18n="intro">We design friendly, creative mobile applications that help students stay organized, focused, and inspired.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#projects" data-i18n="viewProject">View Project</a>
-            <a class="button secondary" href="about.html" data-i18n="aboutTeam">About the team</a>
-          </div>
-        </div>
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
 
-        <div class="hero-visual">
-          <div class="visual-card">
-            <div class="visual-card__tag">Mobile apps</div>
-            <h2 data-i18n="heroProjectTitle">Student-first tools</h2>
-            <p data-i18n="heroProjectCopy">Launching the first Aelix app to make campus life easier and more productive.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="projects" class="grid-section">
-        <div class="section-header">
-          <p class="section-pretitle" data-i18n="projectsTitle">Project spotlight</p>
-          <h2 data-i18n="projectsSubtitle">One mobile application, built to help students.</h2>
-        </div>
-        <div class="grid-cards">
-          <article class="card">
-            <span class="card-tag">Mobile App</span>
-            <h3>Aelix Study</h3>
-            <p>Our first mobile application designed to support student workflows, course planning, and creative collaboration.</p>
-            <a class="card-link" href="project-mobile-app.html" data-i18n="viewProject">View project</a>
-          </article>
-        </div>
-      </section>
-
-      <section id="blog" class="feature-section">
-        <div class="feature-card">
-          <p class="section-pretitle" data-i18n="blogTitle">News & insights</p>
-          <h2 data-i18n="blogSubtitle">Stories, updates, and student-led ideas.</h2>
-          <p>Read the latest on our mobile app launch, team progress, and the design thinking behind Aelix Studios.</p>
-          <a class="button primary" href="blog.html" data-i18n="visitBlog">Visit the blog</a>
-        </div>
-      </section>
-
-      <section id="about" class="split-section">
-        <div>
-          <p class="section-pretitle">About Aelix Studios</p>
-          <h2>Student-focused product design with a premium feel.</h2>
-          <p>We are two students building apps and digital experiences that make campus life more creative, organized, and rewarding.</p>
-        </div>
-        <div class="service-list">
-          <div class="service-item">
-            <h3>Mission</h3>
-            <p>Support students with tools created by students who understand how modern learning works.</p>
-          </div>
-          <div class="service-item">
-            <h3>Approach</h3>
-            <p>Friendly, simple, and polished design with Apple-esque clarity and abstract visual energy.</p>
-          </div>
-          <div class="service-item">
-            <h3>One project at a time</h3>
-            <p>We’re focused on a single mobile app launch today, with plans to expand when the first product lands.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="contact-section">
-        <div class="contact-card">
-          <div>
-            <p class="section-pretitle">Let’s talk</p>
-            <h2>Want to learn more or follow our launch?</h2>
-            <p>Join our mailing list or email us and we’ll keep you updated on new apps and student resources.</p>
-          </div>
-          <a class="button primary" href="mailto:hello@aelixstudios.com">hello@aelixstudios.com</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer-bar">
-      <p>© 2026 Aelix Studios — Student-first mobile product design.</p>
-    </footer>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="mailto:hello@aelixstudios.com">Contact</a>
   </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Work</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="mailto:hello@aelixstudios.com">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">
+        <div class="theme-btn-knob"></div>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div>
+      <span class="page-header-eyebrow reveal">Student-first</span>
+      <h1 class="page-header-title reveal">Work</h1>
+    </div>
+    <p class="page-header-sub reveal-left">
+      Mobile experiences built by students, for students. Deliberate, premium, and made to last.
+    </p>
+  </div>
+
+  <!-- Work index -->
+  <section class="work-section">
+    <a href="project-mobile-app.html" class="work-item reveal">
+      <span class="work-item-index">01</span>
+      <span class="work-item-title">Aelix Study</span>
+      <div class="work-item-meta">
+        <span class="work-item-category">Mobile App</span>
+        <span class="work-item-arrow">→</span>
+      </div>
+    </a>
+    <a href="project-aurora.html" class="work-item reveal" style="transition-delay:0.05s">
+      <span class="work-item-index">02</span>
+      <span class="work-item-title">Project Aurora</span>
+      <div class="work-item-meta">
+        <span class="work-item-category">Web Platform</span>
+        <span class="work-item-arrow">→</span>
+      </div>
+    </a>
+    <a href="project-lumen.html" class="work-item reveal" style="transition-delay:0.1s">
+      <span class="work-item-index">03</span>
+      <span class="work-item-title">Project Lumen</span>
+      <div class="work-item-meta">
+        <span class="work-item-category">Brand Platform</span>
+        <span class="work-item-arrow">→</span>
+      </div>
+    </a>
+    <a href="project-nova.html" class="work-item reveal" style="transition-delay:0.15s">
+      <span class="work-item-index">04</span>
+      <span class="work-item-title">Project Nova</span>
+      <div class="work-item-meta">
+        <span class="work-item-category">Experience Design</span>
+        <span class="work-item-arrow">→</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- About blurb -->
+  <section class="editorial-section">
+    <span class="editorial-label reveal">About the studio</span>
+    <div class="editorial-content">
+      <h2 class="editorial-title reveal">Two students.<br><em>One studio.</em></h2>
+      <p class="editorial-body reveal">
+        We are Aelix Studios — a two-person student design studio building mobile experiences
+        that make campus life more creative, organized, and rewarding. We care about the
+        details that most people skip: the weight of a line, the pause between interactions,
+        the moment a student feels at home in an app we made.
+      </p>
+      <a href="about.html" class="cta-btn reveal" style="margin-top:32px; display:inline-flex;">
+        Meet the team
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="cta-title reveal">Let&rsquo;s make <em>something.</em></h2>
+    <a href="mailto:hello@aelixstudios.com" class="cta-btn reveal">
+      hello@aelixstudios.com
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+    </div>
+    <span class="footer-copy">© 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
 
   <script src="scripts.js" defer></script>
 </body>

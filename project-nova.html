@@ -3,73 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aelix Studio — Project Nova</title>
+  <title>Project Nova | Aelix Studios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <header class="topbar">
-      <div class="brand">Aelix Studio</div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#services">Services</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact">Contact</a>
-      </nav>
-      <a class="cta-button" href="mailto:hello@aelixstudio.com">Contact</a>
-    </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <span class="eyebrow">Project Highlight</span>
-          <h1>Project Nova</h1>
-          <p>An immersive brand and platform launch for a creative services partner, balancing rich visuals with usability-driven structure.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="index.html#projects">Back to Projects</a>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="visual-card">
-            <div class="visual-card__tag">Experience</div>
-            <h2>Nova brand rollout</h2>
-            <p>Strong color contrast, motion-ready layout, and a refined interface that supports storytelling and conversion.</p>
-          </div>
-        </div>
-      </section>
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
 
-      <section class="grid-section">
-        <div class="section-header">
-          <p class="section-pretitle">Project details</p>
-          <h2>Brand identity with a focus on clarity and craftsmanship.</h2>
-        </div>
-        <div class="grid-cards">
-          <article class="card">
-            <span class="card-tag">Research</span>
-            <h3>Customer-first positioning</h3>
-            <p>We explored visual direction and messaging to align the product with the right audience and usage context.</p>
-          </article>
-          <article class="card">
-            <span class="card-tag">Visual design</span>
-            <h3>Distinctive digital identity</h3>
-            <p>A bold visual palette and elegant typography help the brand stand out while remaining calm and approachable.</p>
-          </article>
-          <article class="card">
-            <span class="card-tag">Results</span>
-            <h3>Launch-ready creative platform</h3>
-            <p>The final delivery included flexible page templates and a content system built for future growth.</p>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer-bar">
-      <p>© 2026 Aelix Studio — Crafted for modern brands.</p>
-    </footer>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Work</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="mailto:hello@aelixstudios.com">Contact</a>
   </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Work</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="mailto:hello@aelixstudios.com">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">
+        <div class="theme-btn-knob"></div>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div>
+      <span class="page-header-eyebrow reveal">Experience Design — 04</span>
+      <h1 class="page-header-title reveal">Project<br>Nova</h1>
+    </div>
+    <p class="page-header-sub reveal-left">
+      An immersive brand and platform launch for a creative services partner — rich visuals balanced with usability-driven structure.
+    </p>
+  </div>
+
+  <!-- Project meta -->
+  <div class="project-meta-bar reveal">
+    <div class="project-meta-item">
+      <span class="project-meta-label">Type</span>
+      <span class="project-meta-value">Experience Design</span>
+    </div>
+    <div class="project-meta-item">
+      <span class="project-meta-label">Scope</span>
+      <span class="project-meta-value">Brand Identity &amp; Web</span>
+    </div>
+    <div class="project-meta-item">
+      <span class="project-meta-label">Deliverable</span>
+      <span class="project-meta-value">Creative Platform</span>
+    </div>
+    <div class="project-meta-item">
+      <span class="project-meta-label">Year</span>
+      <span class="project-meta-value">2026</span>
+    </div>
+  </div>
+
+  <!-- Project body -->
+  <div class="project-body">
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Research</span>
+      <div class="reveal">
+        <h2 class="project-section-title">Customer-first positioning.</h2>
+        <p class="project-section-body">
+          Before touching a single pixel, we spent time understanding who the brand was actually
+          speaking to — and whether the current identity was reaching them. Through visual direction
+          exercises and messaging audits, we aligned the product with the right audience and the
+          right context, giving every design decision a clear reason to exist.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Visual Design</span>
+      <div class="reveal">
+        <h2 class="project-section-title">Distinctive digital identity.</h2>
+        <p class="project-section-body">
+          A bold visual palette and elegant typography help Nova stand out while remaining calm and
+          approachable. We built contrast into every level of the hierarchy — between type and space,
+          between motion and stillness, between what the brand says and how it says it — so the
+          experience rewards attention without demanding it.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Results</span>
+      <div class="reveal">
+        <h2 class="project-section-title">A platform built for growth.</h2>
+        <p class="project-section-body">
+          The final delivery included flexible page templates, a motion-ready layout system, and a
+          content framework designed for future releases. The brand now has a digital home that
+          reflects its ambition — and the tools to keep evolving it without starting over.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Back / CTA -->
+  <section class="cta-section">
+    <a href="index.html" class="back-link reveal">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      All work
+    </a>
+    <h2 class="cta-title reveal">Start a <em>conversation.</em></h2>
+    <a href="mailto:hello@aelixstudios.com" class="cta-btn reveal">
+      hello@aelixstudios.com
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+    </div>
+    <span class="footer-copy">© 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
+
+  <script src="scripts.js" defer></script>
 </body>
 </html>
