@@ -35,24 +35,6 @@ if (ring && dot) {
   });
 }
 
-// ── Dark / light mode ─────────────────────────────
-const body     = document.body;
-const themeBtn = document.getElementById('themeBtn');
-
-const savedTheme = localStorage.getItem('aelixTheme');
-if (savedTheme === 'light') {
-  body.classList.remove('dark');
-} else {
-  body.classList.add('dark');
-}
-
-if (themeBtn) {
-  themeBtn.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    localStorage.setItem('aelixTheme', body.classList.contains('dark') ? 'dark' : 'light');
-  });
-}
-
 // ── Nav scroll ────────────────────────────────────
 const nav = document.getElementById('mainNav');
 if (nav) {
@@ -80,9 +62,7 @@ if (hamburger && mobileMenu) {
 // ── Scroll reveal ─────────────────────────────────
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold: 0.08, rootMargin: '-5% 0px' });
 

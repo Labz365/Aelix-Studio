@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.unseen.co)",
+      "Bash(python3 -c ':*)",
+      "Bash(node -e ':*)"
+    ]
+  }
+}
