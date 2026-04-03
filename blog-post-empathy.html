@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a student app with empathy | Aelix Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" class="active">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener"
+       class="donate-btn" style="padding:10px 20px;font-size:0.62rem;margin-right:16px;">Support us</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="post-header reveal">
+    <div class="post-meta">
+      <span class="post-tag">Launch</span>
+      <span class="post-date">March 2026</span>
+      <span class="post-author">by Ayo</span>
+    </div>
+    <h1 class="post-title">Building a student app<br>with empathy</h1>
+    <p class="post-intro">
+      A behind-the-scenes look at how we blend friendly design with premium mobile interactions &mdash;
+      and why understanding the user first changes everything about how you build.
+    </p>
+  </div>
+
+  <div class="post-body reveal">
+    <p>
+      When Ellis and I started building SFMe, the first thing we did was not open Figma or write
+      a single line of Flutter. We sat down and talked about money. About what it felt like to
+      check your bank account the week before student finance came in. About the spreadsheet
+      tricks, the mental gymnastics, the low-key anxiety that lives in the background when you
+      are a student trying to make things work.
+    </p>
+    <p>
+      That conversation became the foundation of everything we built. Not a feature list &mdash; a
+      feeling. The feeling we wanted SFMe to fix.
+    </p>
+
+    <h2>Start with the feeling, not the feature</h2>
+    <p>
+      Most budgeting apps are built for people who already like thinking about money. They are full
+      of graphs, categories, projections, and dashboards. They assume that if you give someone more
+      data, they will feel more in control. But that is not how it works for most students.
+    </p>
+    <p>
+      More data, without clarity, just creates more anxiety. So we asked a different question: what
+      would it feel like to open this app and immediately know you are okay? Or, if you are not okay,
+      to know exactly why &mdash; simply, without judgment?
+    </p>
+
+    <h2>Designing for real behaviour</h2>
+    <p>
+      Students do not budget in advance. They check after the fact. They want to know: did I spend
+      too much on food this week? How much is left until the end of the month? Can I afford this?
+      These are simple questions that most apps bury under layers of setup and manual input.
+    </p>
+    <p>
+      SFMe is built around those questions. The interface answers them immediately &mdash; before you
+      have to go looking. That is the work of empathy: not adding features, but removing distance.
+    </p>
+
+    <blockquote>
+      The best design is the kind that feels like it already knew what you needed.
+    </blockquote>
+
+    <h2>What we are still learning</h2>
+    <p>
+      We shipped an early version of SFMe to a small group of students and got the kind of feedback
+      that makes you simultaneously excited and humbled. Some things worked exactly as intended.
+      Others did not survive contact with real users at all. That is the process &mdash; and we are
+      grateful for every piece of it.
+    </p>
+    <p>
+      If you want to follow along as we build, the journal is the best place to do it. We will keep
+      writing about what we are learning, what we are changing, and why.
+    </p>
+  </div>
+
+  <section style="padding:0 64px 80px;">
+    <a href="blog.html" class="back-link">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      Back to journal
+    </a>
+  </section>
+
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>

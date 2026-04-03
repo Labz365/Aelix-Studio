@@ -17,21 +17,22 @@
 
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Work</a>
+    <a href="projects.html">Projects</a>
     <a href="about.html">About</a>
     <a href="blog.html">Journal</a>
-    <a href="mailto:admin@aelixstudios.com">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
 
-  <!-- Navigation -->
   <nav class="nav" id="mainNav">
     <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
     <div class="nav-links">
-      <a href="index.html">Work</a>
+      <a href="projects.html">Projects</a>
       <a href="about.html" class="active">About</a>
       <a href="blog.html">Journal</a>
-      <a href="mailto:admin@aelixstudios.com">Contact</a>
+      <a href="contact.html">Contact</a>
     </div>
+    <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener"
+       class="donate-btn" style="padding:10px 20px;font-size:0.62rem;margin-right:16px;">Support us</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
@@ -55,11 +56,15 @@
     <div class="member">
       <span class="member-bg-num">01</span>
 
-      <div class="member-portrait" id="portrait1">
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
-          alt="Ayo"
-        />
+      <div class="abstract-portrait" id="portrait1">
+        <div class="ap-grid"></div>
+        <div class="ap-circle"></div>
+        <div class="ap-circle ap-circle-2"></div>
+        <div class="ap-line-h"></div>
+        <div class="ap-line-v"></div>
+        <div class="ap-box">
+          <span class="ap-initial">A</span>
+        </div>
       </div>
 
       <div class="member-body">
@@ -88,11 +93,15 @@
     <div class="member reversed">
       <span class="member-bg-num">02</span>
 
-      <div class="member-portrait" id="portrait2">
-        <img
-          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80"
-          alt="Ellis"
-        />
+      <div class="abstract-portrait" id="portrait2">
+        <div class="ap-grid"></div>
+        <div class="ap-circle"></div>
+        <div class="ap-circle ap-circle-2"></div>
+        <div class="ap-line-h"></div>
+        <div class="ap-line-v"></div>
+        <div class="ap-box">
+          <span class="ap-initial">E</span>
+        </div>
       </div>
 
       <div class="member-body">
@@ -168,7 +177,7 @@
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.2 });
-    document.querySelectorAll('.member-portrait').forEach(el => portraitObserver.observe(el));
+    document.querySelectorAll('.abstract-portrait').forEach(el => portraitObserver.observe(el));
   </script>
 </body>
 </html>

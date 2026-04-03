@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aelix Studios | Student-first mobile products</title>
+  <title>Aelix Studios | Creative Design &amp; Development</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
@@ -11,71 +11,144 @@
 </head>
 <body>
 
-  <!-- Custom cursor -->
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot"  id="cursorDot"></div>
 
-  <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Work</a>
+    <a href="projects.html">Projects</a>
     <a href="about.html">About</a>
     <a href="blog.html">Journal</a>
-    <a href="mailto:admin@aelixstudios.com">Contact</a>
+    <a href="contact.html">Contact</a>
   </div>
 
-  <!-- Navigation -->
   <nav class="nav" id="mainNav">
     <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
     <div class="nav-links">
-      <a href="index.html" class="active">Work</a>
+      <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
       <a href="blog.html">Journal</a>
-      <a href="mailto:admin@aelixstudios.com">Contact</a>
+      <a href="contact.html">Contact</a>
     </div>
+    <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener"
+       class="donate-btn" style="padding:10px 20px;font-size:0.62rem;margin-right:16px;">Support us</a>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- Page header -->
-  <div class="page-header">
-    <div>
-      <span class="page-header-eyebrow reveal">Student-first</span>
-      <h1 class="page-header-title reveal">Work</h1>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-shapes" id="heroShapes">
+      <svg class="geo-shape s1" viewBox="0 0 300 300" fill="none" data-parallax="30">
+        <circle cx="150" cy="150" r="145" stroke="rgba(221,208,196,0.18)" stroke-width="1"/>
+        <circle cx="150" cy="150" r="100" stroke="rgba(221,208,196,0.08)" stroke-width="1" stroke-dasharray="6 12"/>
+      </svg>
+      <svg class="geo-shape s2" viewBox="0 0 160 160" fill="none" data-parallax="50">
+        <rect x="8" y="8" width="144" height="144" stroke="rgba(242,237,232,0.1)" stroke-width="1"/>
+        <rect x="30" y="30" width="100" height="100" stroke="rgba(242,237,232,0.06)" stroke-width="1" stroke-dasharray="4 8"/>
+      </svg>
+      <svg class="geo-shape s3" viewBox="0 0 100 90" fill="none" data-parallax="70">
+        <polygon points="50,4 96,86 4,86" stroke="rgba(221,208,196,0.2)" stroke-width="1" fill="none"/>
+      </svg>
+      <svg class="geo-shape s4" viewBox="0 0 140 140" fill="none" data-parallax="20">
+        <defs>
+          <pattern id="dotgrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="rgba(242,237,232,0.18)"/>
+          </pattern>
+        </defs>
+        <rect width="140" height="140" fill="url(#dotgrid)"/>
+      </svg>
+      <svg class="geo-shape s5" viewBox="0 0 40 40" fill="none" data-parallax="90">
+        <line x1="20" y1="0" x2="20" y2="40" stroke="rgba(221,208,196,0.35)" stroke-width="1"/>
+        <line x1="0" y1="20" x2="40" y2="20" stroke="rgba(221,208,196,0.35)" stroke-width="1"/>
+      </svg>
     </div>
-    <p class="page-header-sub reveal-left">
-      A creative design and development studio. We build products that are deliberate, premium, and made to last.
-    </p>
-  </div>
 
-  <!-- Work index -->
-  <section class="work-section">
-    <a href="project-mobile-app.html" class="work-item reveal">
-      <span class="work-item-index">01</span>
-      <span class="work-item-title">SFMe</span>
-      <div class="work-item-meta">
-        <span class="work-item-category">Mobile App</span>
-        <span class="work-item-arrow">→</span>
+    <div class="hero-content">
+      <span class="hero-tag">Creative Studio &middot; Est. 2026</span>
+      <h1 class="hero-title">
+        <span class="ht-a" id="heroWordA">AELIX</span>
+        <span class="ht-b">Studios</span>
+      </h1>
+      <p class="hero-desc">
+        Design &amp; development built for students.<br>
+        We make things that feel as good as they work.
+      </p>
+      <div class="hero-actions">
+        <a href="projects.html" class="hero-link primary">View projects &rarr;</a>
+        <a href="about.html" class="hero-link secondary">About us</a>
+        <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener"
+           class="hero-link secondary">Support us &nearr;</a>
       </div>
-    </a>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
   </section>
 
-  <!-- About blurb -->
-  <section class="editorial-section">
-    <span class="editorial-label reveal">About the studio</span>
-    <div class="editorial-content">
-      <h2 class="editorial-title reveal">Two students.<br><em>One studio.</em></h2>
-      <p class="editorial-body reveal">
-        We are Aelix Studios — a two-person creative studio founded by Ayo and Ellis.
-        We design and build digital products with care: from the first concept to the last
-        interaction. Our current focus is SFMe, a student budgeting app built to make
-        financial clarity effortless for learners.
-      </p>
-      <a href="about.html" class="cta-btn reveal" style="margin-top:32px; display:inline-flex;">
-        Meet the team
-        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
+  <!-- CURRENT WORK -->
+  <section class="home-section reveal">
+    <div class="home-section-header">
+      <h2 class="home-section-title">Current work</h2>
+      <a href="projects.html" class="home-section-link">All projects &rarr;</a>
+    </div>
+    <div class="work-section" style="padding:0;">
+      <a href="project-mobile-app.html" class="work-item">
+        <span class="work-item-index">01</span>
+        <span class="work-item-title">SFMe</span>
+        <div class="work-item-meta">
+          <span class="work-item-category">Student Budgeting App</span>
+          <span class="work-item-arrow">&rarr;</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE -->
+  <section class="home-section">
+    <div class="editorial-section" style="padding:0;border-top:none;">
+      <span class="editorial-label reveal">Who we are</span>
+      <div class="editorial-content">
+        <h2 class="editorial-title reveal">Ayo &amp; Ellis.<br><em>Two builders.</em></h2>
+        <p class="editorial-body reveal">
+          We are Aelix Studios &mdash; a creative design and development studio founded by two
+          students who wanted to make tools that actually help people like them. We work across
+          the full stack: from the first wireframe to the last commit.
+        </p>
+        <a href="about.html" class="cta-btn reveal" style="margin-top:32px;display:inline-flex;">
+          Meet the team
+          <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL TEASER -->
+  <section class="home-section">
+    <div class="home-section-header reveal">
+      <h2 class="home-section-title">From the journal</h2>
+      <a href="blog.html" class="home-section-link">All posts &rarr;</a>
+    </div>
+    <div class="journal-section" style="padding:0;">
+      <a href="blog-post-empathy.html" class="journal-item reveal">
+        <span class="journal-item-tag">Launch</span>
+        <div class="journal-item-body">
+          <h3 class="journal-item-title">Building a student app with empathy</h3>
+          <p class="journal-item-excerpt">A behind-the-scenes look at how we blend friendly design with premium mobile interactions.</p>
+        </div>
+        <span class="journal-item-date">Mar 2026</span>
+      </a>
+      <a href="blog-post-simplicity.html" class="journal-item reveal" style="transition-delay:0.07s">
+        <span class="journal-item-tag">Design</span>
+        <div class="journal-item-body">
+          <h3 class="journal-item-title">Why simplicity is the hardest discipline</h3>
+          <p class="journal-item-excerpt">Clean layouts are not defaults &mdash; they are the result of removing everything that is not needed.</p>
+        </div>
+        <span class="journal-item-date">Feb 2026</span>
       </a>
     </div>
   </section>
@@ -83,25 +156,69 @@
   <!-- CTA -->
   <section class="cta-section">
     <h2 class="cta-title reveal">Let&rsquo;s make <em>something.</em></h2>
-    <a href="mailto:admin@aelixstudios.com" class="cta-btn reveal">
-      admin@aelixstudios.com
-      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-      </svg>
-    </a>
+    <div class="reveal" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+      <a href="contact.html" class="cta-btn">
+        Get in touch
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+      <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener" class="donate-btn">
+        Support our work
+      </a>
+    </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
     <div class="footer-links">
-      <a href="index.html">Work</a>
+      <a href="projects.html">Projects</a>
       <a href="about.html">About</a>
       <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
     </div>
-    <span class="footer-copy">© 2026 Aelix Studios. All rights reserved.</span>
+    <span class="footer-copy">&copy; 2026 Aelix Studios. All rights reserved.</span>
   </footer>
 
   <script src="scripts.js" defer></script>
+  <script>
+    // Mouse parallax on hero shapes
+    var heroShapes = document.getElementById('heroShapes');
+    if (heroShapes) {
+      var shapes = heroShapes.querySelectorAll('[data-parallax]');
+      var tx = 0, ty = 0, cx = 0, cy = 0;
+      document.addEventListener('mousemove', function(e) {
+        tx = e.clientX / window.innerWidth  - 0.5;
+        ty = e.clientY / window.innerHeight - 0.5;
+      });
+      (function loop() {
+        cx += (tx - cx) * 0.06;
+        cy += (ty - cy) * 0.06;
+        shapes.forEach(function(s) {
+          var sp = parseFloat(s.getAttribute('data-parallax'));
+          s.style.transform = 'translate(' + (cx * sp) + 'px,' + (cy * sp) + 'px)';
+        });
+        requestAnimationFrame(loop);
+      })();
+    }
+
+    // Title scramble on load
+    var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var heroWord = document.getElementById('heroWordA');
+    if (heroWord) {
+      var final = 'AELIX';
+      var frame = 0, total = 40;
+      setTimeout(function() {
+        var iv = setInterval(function() {
+          heroWord.textContent = final.split('').map(function(ch, i) {
+            return frame / total > i / final.length
+              ? ch
+              : CHARS[Math.floor(Math.random() * CHARS.length)];
+          }).join('');
+          if (++frame > total) { heroWord.textContent = final; clearInterval(iv); }
+        }, 28);
+      }, 700);
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why simplicity is the hardest discipline | Aelix Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html" class="active">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener"
+       class="donate-btn" style="padding:10px 20px;font-size:0.62rem;margin-right:16px;">Support us</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="post-header reveal">
+    <div class="post-meta">
+      <span class="post-tag">Design</span>
+      <span class="post-date">February 2026</span>
+      <span class="post-author">by Ellis</span>
+    </div>
+    <h1 class="post-title">Why simplicity is<br>the hardest discipline</h1>
+    <p class="post-intro">
+      Clean layouts and thoughtful details are not defaults. They are the result of removing
+      everything that is not needed &mdash; and that takes more work than adding things does.
+    </p>
+  </div>
+
+  <div class="post-body reveal">
+    <p>
+      There is a version of SFMe that has twelve screens, four onboarding flows, a settings menu
+      with thirty options, and a dashboard packed with charts. I built that version. Then I deleted
+      most of it.
+    </p>
+    <p>
+      Simplicity is a discipline because complexity is always easier in the short term. When you
+      are not sure what a user needs, you add more. More options. More data. More screens. It feels
+      like thoroughness, but it is usually just deferred decisions.
+    </p>
+
+    <h2>The test I use</h2>
+    <p>
+      Every time I add something to SFMe, I ask: if this was not here, would a student miss it?
+      Not &ldquo;would it be useful&rdquo; &mdash; useful is a low bar. Would its absence be felt?
+      Would someone actually notice?
+    </p>
+    <p>
+      Most features do not pass that test. Most interface elements do not pass that test. The things
+      that remain after asking that question are the things that genuinely matter.
+    </p>
+
+    <h2>Accounting taught me this</h2>
+    <p>
+      I study Accounting and Finance, and there is something in that training that shapes how I think
+      about design. In accounting, everything has to justify its presence. You do not add a line to
+      a balance sheet unless it represents something real. I try to design the same way.
+    </p>
+    <p>
+      A button that is not doing real work is not neutral &mdash; it costs attention. It costs
+      the user a moment of processing, of deciding, of recovering. Every element on a screen has a
+      price. The question is whether it is worth paying.
+    </p>
+
+    <blockquote>
+      Complexity is free to add. Simplicity has to be earned.
+    </blockquote>
+
+    <h2>What this looks like in practice</h2>
+    <p>
+      For SFMe, it meant cutting our onboarding from five screens to two. It meant removing the
+      &ldquo;categories&rdquo; feature in the first version entirely, even though every budgeting
+      app has one, because we were not confident it was solving the right problem yet. It meant
+      accepting that a simpler product shipped is more valuable than a complete product that never
+      is.
+    </p>
+    <p>
+      We will add things back when students tell us they need them. Not before.
+    </p>
+  </div>
+
+  <section style="padding:0 64px 80px;">
+    <a href="blog.html" class="back-link">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      Back to journal
+    </a>
+  </section>
+
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>

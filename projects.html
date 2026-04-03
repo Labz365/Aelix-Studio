@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects | Aelix Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="projects.html" class="active">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener"
+       class="donate-btn" style="padding:10px 20px;font-size:0.62rem;margin-right:16px;">Support us</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-header">
+    <div>
+      <span class="page-header-eyebrow reveal">What we build</span>
+      <h1 class="page-header-title reveal">Projects</h1>
+    </div>
+    <p class="page-header-sub reveal-left">
+      Every project starts with a real problem. Here is what we have built so far &mdash; and what is coming next.
+    </p>
+  </div>
+
+  <section style="padding:64px 64px 100px;">
+    <div class="projects-grid reveal">
+
+      <!-- SFMe -->
+      <a href="project-mobile-app.html" class="project-card">
+        <div class="pc-visual">
+          <svg viewBox="0 0 200 180" fill="none" style="max-height:140px;">
+            <rect x="60" y="20" width="80" height="140" rx="10" stroke="rgba(221,208,196,0.3)" stroke-width="1"/>
+            <rect x="70" y="34" width="60" height="8" rx="2" fill="rgba(221,208,196,0.15)"/>
+            <rect x="70" y="50" width="40" height="6" rx="1" fill="rgba(221,208,196,0.1)"/>
+            <rect x="70" y="66" width="60" height="1" stroke="none" fill="rgba(242,237,232,0.06)"/>
+            <rect x="70" y="76" width="26" height="26" rx="4" fill="rgba(221,208,196,0.12)"/>
+            <rect x="104" y="76" width="26" height="26" rx="4" fill="rgba(221,208,196,0.08)"/>
+            <rect x="70" y="110" width="60" height="6" rx="1" fill="rgba(221,208,196,0.1)"/>
+            <rect x="70" y="122" width="44" height="6" rx="1" fill="rgba(221,208,196,0.07)"/>
+            <circle cx="100" cy="148" r="4" fill="rgba(221,208,196,0.2)"/>
+          </svg>
+        </div>
+        <span class="pc-tag">Mobile App</span>
+        <h3 class="pc-title">SFMe</h3>
+        <p class="pc-desc">A student budgeting app built in Flutter. Track spending, understand money, stay in control.</p>
+        <span class="pc-arrow">View project &rarr;</span>
+      </a>
+
+      <!-- Coming soon 1 -->
+      <div class="project-card locked">
+        <div class="pc-visual">
+          <svg viewBox="0 0 200 180" fill="none" style="max-height:140px;">
+            <circle cx="100" cy="90" r="60" stroke="rgba(242,237,232,0.08)" stroke-width="1" stroke-dasharray="6 10"/>
+            <circle cx="100" cy="90" r="30" stroke="rgba(242,237,232,0.06)" stroke-width="1"/>
+            <line x1="40" y1="90" x2="160" y2="90" stroke="rgba(242,237,232,0.06)" stroke-width="1"/>
+            <line x1="100" y1="30" x2="100" y2="150" stroke="rgba(242,237,232,0.06)" stroke-width="1"/>
+          </svg>
+        </div>
+        <span class="pc-tag">TBA</span>
+        <h3 class="pc-title">Next project</h3>
+        <p class="pc-desc">Something new is in the works. We will share more when it is ready.</p>
+      </div>
+
+      <!-- Coming soon 2 -->
+      <div class="project-card locked">
+        <div class="pc-visual">
+          <svg viewBox="0 0 200 180" fill="none" style="max-height:140px;">
+            <polygon points="100,30 160,140 40,140" stroke="rgba(242,237,232,0.08)" stroke-width="1" fill="none"/>
+            <polygon points="100,60 140,130 60,130" stroke="rgba(242,237,232,0.05)" stroke-width="1" fill="none"/>
+            <line x1="100" y1="30" x2="100" y2="140" stroke="rgba(242,237,232,0.05)" stroke-width="1" stroke-dasharray="3 6"/>
+          </svg>
+        </div>
+        <span class="pc-tag">TBA</span>
+        <h3 class="pc-title">Future work</h3>
+        <p class="pc-desc">More to come. Follow the journal for early updates and behind-the-scenes work.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-title reveal">Have a project <em>in mind?</em></h2>
+    <a href="contact.html" class="cta-btn reveal">
+      Get in touch
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </section>
+
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>
