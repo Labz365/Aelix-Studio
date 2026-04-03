@@ -1,0 +1,23 @@
+{
+  "name": "aelix-studio",
+  "version": "1.0.0",
+  "description": "Aelix Studios - Student-first mobile products website",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Labz365/Aelix-Studio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Labz365/Aelix-Studio/issues"
+  },
+  "homepage": "https://github.com/Labz365/Aelix-Studio#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
