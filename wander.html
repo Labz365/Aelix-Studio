@@ -661,12 +661,22 @@ function buildExports(){
     + `&origin=${s}&destination=${e}&travelmode=walking&waypoints=${encodeURIComponent(wp.join("|"))}`;
   const aTarget = endPt ? e : (m => `${m[0].toFixed(6)},${m[1].toFixed(6)}`)(c[Math.floor(c.length/2)]);
   $("amapsLink").href = `https://maps.apple.com/?saddr=${s}&daddr=${aTarget}&dirflg=w`;
-  const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Wander by Aelix Studios" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>Wander ${fmtDist(route.distM)}</name><trkseg>\n`
+  lastGpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Wander by Aelix Studios" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>Wander ${fmtDist(route.distM)}</name><trkseg>\n`
     + c.map(p => `<trkpt lat="${p[0].toFixed(6)}" lon="${p[1].toFixed(6)}"/>`).join("\n")
     + "\n</trkseg></trk>\n</gpx>";
-  $("gpxLink").href = URL.createObjectURL(new Blob([gpx], {type:"application/gpx+xml"}));
+  $("gpxLink").href = URL.createObjectURL(new Blob([lastGpx], {type:"application/gpx+xml"}));
   document.querySelectorAll(".export").forEach(a => a.style.display = "block");
 }
+// iOS Safari handles blob downloads poorly — use the native share sheet when available
+let lastGpx = null;
+$("gpxLink").addEventListener("click", e => {
+  if (!lastGpx || !navigator.canShare) return;   // desktop: normal download
+  const f = new File([lastGpx], "wander-route.gpx", {type:"application/gpx+xml"});
+  if (navigator.canShare({files:[f]})){
+    e.preventDefault();
+    navigator.share({files:[f], title:"Wander route"}).catch(()=>{});
+  }
+});
 
 // ---------------- boot: saved list + URL params ----------------
 renderSaved();
