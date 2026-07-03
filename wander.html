@@ -153,6 +153,7 @@
     <span>Target <b id="targetDist">3.6 km</b></span>
     <span id="actualWrap" style="display:none">Route <b id="actualDist">–</b></span>
     <span id="timeWrap" style="display:none">≈ <b id="actualTime">–</b></span>
+    <button id="unitBtn" style="border:none;background:none;padding:0;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-left:auto">km / mi</button>
   </div>
 
   <div class="actions">
@@ -199,7 +200,12 @@ const BUSY_QUERY = a => `way[highway~"^(motorway|motorway_link|trunk|trunk_link)
                         `way[highway~"^(primary|secondary)$"][oneway=yes]${a};` +
                         `way[highway][dual_carriageway=yes]${a};` +
                         `way[highway][expressway=yes]${a};`;
-const LS_SAVED = "wander_saved_v1", LS_BEAR = "wander_bearings_v1";
+const LS_SAVED = "wander_saved_v1", LS_BEAR = "wander_bearings_v1", LS_UNIT = "wander_unit_v1";
+const MI = 1609.344;
+let unit = localStorage.getItem(LS_UNIT)
+  || (/-(US|GB|LR|MM)\b/i.test(navigator.language || "") ? "mi" : "km");
+const fmtDist = m => unit === "mi" ? (m/MI).toFixed(1) + " mi" : (m/1000).toFixed(1) + " km";
+const fmtPace = kmh => unit === "mi" ? (kmh/1.609344).toFixed(1) + " mph" : kmh.toFixed(1) + " km/h";
 
 // ---------------- state ----------------
 let start = null, endPt = null;
@@ -249,10 +255,15 @@ function status(msg, err=false, busy=false){
 function targetKm(){ return +$("mins").value / 60 * +$("speed").value; }
 function refreshTarget(){
   $("minsOut").textContent = $("mins").value + " min";
-  $("speedOut").textContent = (+$("speed").value).toFixed(1) + " km/h";
-  $("targetDist").textContent = targetKm().toFixed(1) + " km";
+  $("speedOut").textContent = fmtPace(+$("speed").value);
+  $("targetDist").textContent = fmtDist(targetKm() * 1000);
   if (route) updateRouteStats();
 }
+$("unitBtn").addEventListener("click", () => {
+  unit = unit === "km" ? "mi" : "km";
+  localStorage.setItem(LS_UNIT, unit);
+  refreshTarget(); renderSaved();
+});
 $("mins").addEventListener("input", refreshTarget);
 $("speed").addEventListener("input", refreshTarget);
 document.querySelectorAll(".chip").forEach(c =>
@@ -413,7 +424,7 @@ function rememberBearing(b){
 }
 function saveCurrent(){
   if (!route) return;
-  const def = `${endPt ? "A→B" : "Loop"} ${(route.distM/1000).toFixed(1)} km · ` +
+  const def = `${endPt ? "A→B" : "Loop"} ${fmtDist(route.distM)} · ` +
               new Date().toLocaleDateString(undefined, {month:"short", day:"numeric"});
   const name = prompt("Name this route:", def);
   if (name === null) return;
@@ -433,7 +444,7 @@ function renderSaved(){
     const div = document.createElement("div");
     div.className = "saved-item";
     div.innerHTML = `<span class="nm">${escapeHtml(s.name)}</span>
-      <span class="meta">${(s.distM/1000).toFixed(1)} km</span>`;
+      <span class="meta">${fmtDist(s.distM)}</span>`;
     const load = document.createElement("button"); load.textContent = "Load";
     load.onclick = () => {
       route = {coords: s.coords, distM: s.distM, sample: s.sample.map(p => ({lat:p[0], lon:p[1]}))};
@@ -507,7 +518,7 @@ async function generate(shuffle){
     buildExports();
     $("shuffleBtn").style.display = $("saveBtn").style.display = "";
     const tag = READY_MSGS[Math.floor(Math.random()*READY_MSGS.length)];
-    status(`${tag} — ${(route.distM/1000).toFixed(1)} km, finishing ${endPt ? "at your end point" : "back at the start"}.`);
+    status(`${tag} — ${fmtDist(route.distM)}, finishing ${endPt ? "at your end point" : "back at the start"}.`);
   }catch(e){
     status("Routing failed (server busy or unwalkable area). Try again or adjust points.", true);
   }finally{
@@ -633,7 +644,7 @@ function drawRoute(area){
 function updateRouteStats(){
   if (!route) return;
   $("actualWrap").style.display = $("timeWrap").style.display = "";
-  $("actualDist").textContent = (route.distM/1000).toFixed(1) + " km";
+  $("actualDist").textContent = fmtDist(route.distM);
   $("actualTime").textContent = Math.round(route.distM/1000 / +$("speed").value * 60) + " min";
 }
 function buildExports(){
@@ -650,7 +661,7 @@ function buildExports(){
     + `&origin=${s}&destination=${e}&travelmode=walking&waypoints=${encodeURIComponent(wp.join("|"))}`;
   const aTarget = endPt ? e : (m => `${m[0].toFixed(6)},${m[1].toFixed(6)}`)(c[Math.floor(c.length/2)]);
   $("amapsLink").href = `https://maps.apple.com/?saddr=${s}&daddr=${aTarget}&dirflg=w`;
-  const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Wander by Aelix Studios" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>Wander ${(route.distM/1000).toFixed(1)} km</name><trkseg>\n`
+  const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Wander by Aelix Studios" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>Wander ${fmtDist(route.distM)}</name><trkseg>\n`
     + c.map(p => `<trkpt lat="${p[0].toFixed(6)}" lon="${p[1].toFixed(6)}"/>`).join("\n")
     + "\n</trkseg></trk>\n</gpx>";
   $("gpxLink").href = URL.createObjectURL(new Blob([gpx], {type:"application/gpx+xml"}));
