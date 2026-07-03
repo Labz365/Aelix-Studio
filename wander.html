@@ -170,7 +170,7 @@
     <div id="savedList"></div>
   </details>
 
-  <div class="hint">Loops always return to your exact start; with an end point set, arrival there is guaranteed — the scenic detour is sized to your duration. Google Maps opens the route with waypoints; Apple Maps links support a single destination, so that link targets your end point (or the loop's midpoint). GPX carries the exact route for any navigation app. Quick-start from the launcher: <code>wander.html?mins=45&amp;speed=5&amp;auto=1</code>.</div>
+  <div class="hint">Loops always return to your exact start; with an end point set, arrival there is guaranteed — the scenic detour is sized to your duration. Google Maps opens the route with waypoints; Apple Maps links support a single destination, so that link targets your end point (or the loop's midpoint). GPX carries the exact route for any navigation app. On Apple Watch, share the GPX to Komoot or WorkOutDoors for wrist turn-by-turn &mdash; Apple's own Workout app can't follow routes, so the Apple Maps button is the Apple-native fallback (its directions mirror to the watch). Quick-start from the launcher: <code>wander.html?mins=45&amp;speed=5&amp;auto=1</code>.</div>
 </div>
 
 <footer>
@@ -670,12 +670,16 @@ function buildExports(){
 // iOS Safari handles blob downloads poorly — use the native share sheet when available
 let lastGpx = null;
 $("gpxLink").addEventListener("click", e => {
-  if (!lastGpx || !navigator.canShare) return;   // desktop: normal download
-  const f = new File([lastGpx], "wander-route.gpx", {type:"application/gpx+xml"});
-  if (navigator.canShare({files:[f]})){
-    e.preventDefault();
-    navigator.share({files:[f], title:"Wander route"}).catch(()=>{});
+  if (!lastGpx) return;
+  const ios = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  if (navigator.canShare){
+    const f = new File([lastGpx], "wander-route.gpx", {type:"application/gpx+xml"});
+    if (navigator.canShare({files:[f]})){
+      e.preventDefault();
+      navigator.share({files:[f], title:"Wander route"}).catch(()=>{});
+    }
   }
+  if (ios) status("Komoot not in the share list? Choose “Save to Files”, then in Komoot: Saved → Routes → Import → pick the file.");
 });
 
 // ---------------- boot: saved list + URL params ----------------
