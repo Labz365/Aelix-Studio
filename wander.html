@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Wander | Aelix Studios</title>
+<meta name="description" content="Wander by Aelix Studios — tell it where you are and how long you want to walk, and it designs an interesting route that always gets you home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{
+    --bg:#161616; --bg-subtle:#1f1f1f; --ink:#f2ede8;
+    --mid:rgba(242,237,232,0.62); --dim:rgba(242,237,232,0.38);
+    --accent:#ddd0c4; --border:rgba(242,237,232,0.12);
+    --chip-on:rgba(221,208,196,0.16); --avoid-on:rgba(192,83,63,0.18);
+    --font-display:'Cormorant',serif; --font-body:'DM Sans',sans-serif; --font-mono:'DM Mono',monospace;
+  }
+  *{box-sizing:border-box; margin:0}
+  body{font-family:var(--font-body); background:var(--bg); color:var(--ink);
+    min-height:100dvh; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--accent); color:var(--bg)}
+  a{color:inherit; text-decoration:none}
+
+  .topbar{display:flex; align-items:baseline; justify-content:space-between;
+    padding:18px 20px 10px; border-bottom:1px solid var(--border)}
+  .logo{font-family:var(--font-mono); font-size:.8rem; letter-spacing:.25em}
+  .logo span{color:var(--accent)}
+  .app-name{font-family:var(--font-display); font-size:1.5rem; font-weight:500; font-style:italic}
+  .tagline{font-family:var(--font-mono); font-size:.55rem; letter-spacing:.2em; color:var(--dim); text-transform:uppercase}
+
+  #map{flex:1; min-height:40dvh; margin:14px 16px 0; border:1px solid var(--border); z-index:0}
+  .leaflet-container{background:#0f0f0f}
+  .map-tiles{filter:grayscale(.35) brightness(.92)}
+
+  .panel{padding:16px 20px calc(16px + env(safe-area-inset-bottom))}
+  .row{display:flex; gap:8px; align-items:center; margin-bottom:10px}
+  input[type=text]{flex:1; padding:11px 12px; border:1px solid var(--border);
+    background:var(--bg-subtle); color:var(--ink); font-size:.9rem; min-width:0; font-family:var(--font-body)}
+  input[type=text]::placeholder{color:var(--dim)}
+  input[type=text]:focus{outline:none; border-color:var(--accent)}
+  button{border:1px solid var(--border); background:var(--bg-subtle); color:var(--ink);
+    padding:11px 14px; font-size:.85rem; font-family:var(--font-body); font-weight:500;
+    cursor:pointer; -webkit-tap-highlight-color:transparent; transition:border-color .2s}
+  button:hover{border-color:var(--accent)}
+  button:active{transform:scale(.98)}
+  button:disabled{opacity:.4}
+  .primary{background:var(--accent); color:var(--bg); border-color:var(--accent);
+    font-family:var(--font-mono); font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; padding:14px 18px}
+  .linkish{background:none; border:none; padding:4px 0 10px; font-size:.78rem; color:var(--accent)}
+
+  .slider-row{display:flex; align-items:center; gap:12px; margin-bottom:8px}
+  .slider-row label{font-family:var(--font-mono); font-size:.58rem; letter-spacing:.18em;
+    text-transform:uppercase; width:88px; color:var(--dim); flex-shrink:0}
+  .slider-row output{font-size:.85rem; width:74px; text-align:right; flex-shrink:0; color:var(--mid)}
+  input[type=range]{flex:1; accent-color:var(--accent); min-width:0}
+
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 12px}
+  .chips .lbl{width:100%; font-family:var(--font-mono); font-size:.55rem; color:var(--dim);
+    text-transform:uppercase; letter-spacing:.2em; margin-bottom:2px}
+  .chip{padding:8px 13px; border-radius:999px; font-size:.8rem; border:1px solid var(--border); background:none; color:var(--mid)}
+  .chip.on.prefer{background:var(--chip-on); border-color:var(--accent); color:var(--ink)}
+  .chip.on.avoid{background:var(--avoid-on); border-color:rgba(192,83,63,.6); color:var(--ink)}
+
+  .stats{display:flex; gap:18px; font-size:.82rem; color:var(--dim); margin-bottom:12px; flex-wrap:wrap}
+  .stats b{color:var(--ink); font-weight:500}
+  .actions{display:flex; gap:8px; flex-wrap:wrap}
+  .actions button, .actions a{flex:1; min-width:104px; text-align:center;
+    padding:12px 8px; font-size:.82rem}
+  a.export{border:1px solid var(--border); background:var(--bg-subtle); display:none;
+    font-family:var(--font-mono); font-size:.6rem; letter-spacing:.15em; text-transform:uppercase;
+    padding:14px 8px; transition:border-color .2s}
+  a.export:hover{border-color:var(--accent)}
+
+  #status{font-family:var(--font-mono); font-size:.62rem; letter-spacing:.08em;
+    color:var(--dim); min-height:1.2em; margin-bottom:10px}
+  #status.err{color:#c0533f}
+  .spin{display:inline-block; width:10px; height:10px; border:1.5px solid var(--accent);
+    border-top-color:transparent; border-radius:50%; animation:sp .7s linear infinite; vertical-align:-1px; margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  details.saved{margin-top:12px; border-top:1px solid var(--border); padding-top:10px}
+  details.saved summary{font-family:var(--font-mono); font-size:.62rem; letter-spacing:.15em;
+    text-transform:uppercase; cursor:pointer; color:var(--dim)}
+  .saved-item{display:flex; align-items:center; gap:8px; padding:8px 0;
+    border-bottom:1px solid var(--border); font-size:.84rem}
+  .saved-item .nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--mid)}
+  .saved-item .meta{color:var(--dim); font-size:.72rem; flex-shrink:0; font-family:var(--font-mono)}
+  .saved-item button{padding:6px 10px; font-size:.75rem}
+
+  .hint{font-size:.7rem; color:var(--dim); margin-top:12px; line-height:1.6}
+  .hint code{font-family:var(--font-mono); font-size:.65rem; color:var(--mid)}
+  footer{padding:14px 20px calc(14px + env(safe-area-inset-bottom));
+    border-top:1px solid var(--border); display:flex; justify-content:space-between;
+    flex-wrap:wrap; gap:6px; font-family:var(--font-mono); font-size:.55rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--dim)}
+  footer b{color:var(--accent); font-weight:400}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo" href="index.html">AELIX<span>.</span></a>
+  <span class="app-name">Wander</span>
+  <span class="tagline">Walking, made interesting</span>
+</div>
+
+<div id="map"></div>
+
+<div class="panel">
+  <div id="status"></div>
+  <div class="row">
+    <input type="text" id="addr" placeholder="Start address — or tap the map" enterkeyhint="search">
+    <button id="searchBtn" title="Search">Search</button>
+    <button id="locBtn" title="Use my location">Locate</button>
+  </div>
+  <button class="linkish" id="endToggle">+ finish somewhere else</button>
+  <div class="row" id="endRow" style="display:none">
+    <input type="text" id="endAddr" placeholder="End address — or tap map after Pin" enterkeyhint="search">
+    <button id="endSearchBtn" title="Search end">Search</button>
+    <button id="endTapBtn" title="Tap map to set end">Pin</button>
+    <button id="endClearBtn" title="Back to loop">✕</button>
+  </div>
+
+  <div class="slider-row">
+    <label for="mins">Duration</label>
+    <input type="range" id="mins" min="10" max="180" step="5" value="45">
+    <output id="minsOut">45 min</output>
+  </div>
+  <div class="slider-row">
+    <label for="speed">Pace</label>
+    <input type="range" id="speed" min="2.5" max="7" step="0.1" value="4.8">
+    <output id="speedOut">4.8 km/h</output>
+  </div>
+
+  <div class="chips" id="preferChips">
+    <span class="lbl">Look for</span>
+    <button class="chip prefer on" data-k="parks">Parks</button>
+    <button class="chip prefer on" data-k="water">Water</button>
+    <button class="chip prefer" data-k="landmarks">Landmarks</button>
+    <button class="chip prefer" data-k="cafes">Cafés</button>
+    <button class="chip prefer" data-k="viewpoints">Viewpoints</button>
+  </div>
+  <div class="chips" id="avoidChips">
+    <span class="lbl">Avoid</span>
+    <button class="chip avoid on" data-k="busy" title="Motorways, trunk roads and dual carriageways">Motorways &amp; dual carriageways</button>
+    <button class="chip avoid" data-k="industrial">Industrial areas</button>
+    <button class="chip avoid on" data-k="repeats" title="Steers away from saved and recent routes">Repeating old routes</button>
+  </div>
+
+  <div class="stats" id="stats">
+    <span>Target <b id="targetDist">3.6 km</b></span>
+    <span id="actualWrap" style="display:none">Route <b id="actualDist">–</b></span>
+    <span id="timeWrap" style="display:none">≈ <b id="actualTime">–</b></span>
+  </div>
+
+  <div class="actions">
+    <button class="primary" id="goBtn">Generate route</button>
+    <button id="shuffleBtn" style="display:none">Shuffle</button>
+    <button id="saveBtn" style="display:none">Save</button>
+    <a class="export" id="gmapsLink" target="_blank" rel="noopener">Google Maps</a>
+    <a class="export" id="amapsLink" target="_blank" rel="noopener">Apple Maps</a>
+    <a class="export" id="gpxLink" download="wander-route.gpx">GPX</a>
+  </div>
+
+  <details class="saved" id="savedBox" style="display:none">
+    <summary>Saved routes (<span id="savedCount">0</span>)</summary>
+    <div id="savedList"></div>
+  </details>
+
+  <div class="hint">Loops always return to your exact start; with an end point set, arrival there is guaranteed — the scenic detour is sized to your duration. Google Maps opens the route with waypoints; Apple Maps links support a single destination, so that link targets your end point (or the loop's midpoint). GPX carries the exact route for any navigation app. Quick-start from the launcher: <code>wander.html?mins=45&amp;speed=5&amp;auto=1</code>.</div>
+</div>
+
+<footer>
+  <span>© 2026 Aelix Studios</span>
+  <span>Concept by <b>Kendra</b></span>
+  <span>Maps © OpenStreetMap</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+"use strict";
+// ---------------- config ----------------
+const OSRM = "https://routing.openstreetmap.de/routed-foot/route/v1/foot/";
+const NOMINATIM = "https://nominatim.openstreetmap.org/search";
+const OVERPASS = "https://overpass-api.de/api/interpreter";
+const ROUTE_COLOR = "#8a5a2b", POI_COLOR = "#b08d57";
+const TAGS = {
+  parks:      ['leisure~"park|garden|nature_reserve"', 'landuse="recreation_ground"'],
+  water:      ['natural~"water|beach|coastline"', 'waterway~"river|canal|riverbank"'],
+  landmarks:  ['tourism~"attraction|artwork|museum"', 'historic'],
+  cafes:      ['amenity~"cafe|ice_cream"'],
+  viewpoints: ['tourism="viewpoint"'],
+  industrial: ['landuse="industrial"']
+};
+// "busy" = motorways, trunk roads and dual carriageways (incl. dual-carriageway primaries)
+const BUSY_QUERY = a => `way[highway~"^(motorway|motorway_link|trunk|trunk_link)$"]${a};` +
+                        `way[highway~"^(primary|secondary)$"][oneway=yes]${a};` +
+                        `way[highway][dual_carriageway=yes]${a};` +
+                        `way[highway][expressway=yes]${a};`;
+const LS_SAVED = "wander_saved_v1", LS_BEAR = "wander_bearings_v1";
+
+// ---------------- state ----------------
+let start = null, endPt = null;
+let route = null;
+let map, startMarker, endMarker, routeLine, poiLayer, endTapMode = false;
+let lastBearing = null;
+
+// ---------------- map ----------------
+map = L.map("map", {zoomControl:false}).setView([51.5072,-0.1276], 13);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {maxZoom:19, attribution:'© OpenStreetMap', className:"map-tiles"}).addTo(map);
+L.control.zoom({position:"topright"}).addTo(map);
+poiLayer = L.layerGroup().addTo(map);
+map.on("click", e => endTapMode ? setEnd(e.latlng.lat, e.latlng.lng)
+                                : setStart(e.latlng.lat, e.latlng.lng, true));
+
+function setStart(lat, lon, pan){
+  start = {lat, lon};
+  if (startMarker) startMarker.setLatLng([lat,lon]);
+  else startMarker = L.marker([lat,lon], {draggable:true, title:"Start"}).addTo(map)
+        .on("dragend", ev => { const p = ev.target.getLatLng(); setStart(p.lat, p.lng, false); });
+  if (pan) map.setView([lat,lon], Math.max(map.getZoom(), 14));
+  status("Start set. Ready to wander.");
+}
+function setEnd(lat, lon){
+  endPt = {lat, lon}; endTapMode = false;
+  if (endMarker) endMarker.setLatLng([lat,lon]);
+  else endMarker = L.marker([lat,lon], {draggable:true, opacity:.85, title:"End"}).addTo(map)
+        .on("dragend", ev => { const p = ev.target.getLatLng(); setEnd(p.lat, p.lng); });
+  status("End point set — routes will finish exactly there.");
+}
+function clearEnd(){
+  endPt = null; endTapMode = false;
+  if (endMarker){ map.removeLayer(endMarker); endMarker = null; }
+  $("endRow").style.display = "none"; $("endToggle").style.display = "";
+  status("Back to loop mode — finish where you started.");
+}
+
+// ---------------- ui ----------------
+const $ = id => document.getElementById(id);
+const statusEl = $("status");
+const READY_MSGS = ["Route ready", "Fresh path found", "New ground ahead", "Kendra-approved wandering"];
+function status(msg, err=false, busy=false){
+  statusEl.className = err ? "err" : "";
+  statusEl.innerHTML = (busy ? '<span class="spin"></span>' : "") + msg;
+}
+function targetKm(){ return +$("mins").value / 60 * +$("speed").value; }
+function refreshTarget(){
+  $("minsOut").textContent = $("mins").value + " min";
+  $("speedOut").textContent = (+$("speed").value).toFixed(1) + " km/h";
+  $("targetDist").textContent = targetKm().toFixed(1) + " km";
+  if (route) updateRouteStats();
+}
+$("mins").addEventListener("input", refreshTarget);
+$("speed").addEventListener("input", refreshTarget);
+document.querySelectorAll(".chip").forEach(c =>
+  c.addEventListener("click", () => c.classList.toggle("on")));
+const chipOn = k => document.querySelector(`.chip[data-k="${k}"]`)?.classList.contains("on");
+const preferKeys = () => [...document.querySelectorAll("#preferChips .chip.on")].map(c => c.dataset.k);
+
+$("locBtn").addEventListener("click", () => {
+  if (!navigator.geolocation) return status("Geolocation not available.", true);
+  status("Locating…", false, true);
+  navigator.geolocation.getCurrentPosition(
+    p => setStart(p.coords.latitude, p.coords.longitude, true),
+    () => status("Couldn't get location — search or tap the map.", true),
+    {enableHighAccuracy:true, timeout:10000});
+});
+async function geocode(q){
+  const r = await fetch(`${NOMINATIM}?format=json&limit=1&q=${encodeURIComponent(q)}`);
+  const j = await r.json();
+  return j.length ? {lat:+j[0].lat, lon:+j[0].lon} : null;
+}
+async function searchStart(){
+  const q = $("addr").value.trim(); if (!q) return;
+  status("Searching…", false, true);
+  try{ const p = await geocode(q); p ? setStart(p.lat, p.lon, true) : status("No results.", true); }
+  catch{ status("Search failed.", true); }
+}
+async function searchEnd(){
+  const q = $("endAddr").value.trim(); if (!q) return;
+  status("Searching end…", false, true);
+  try{ const p = await geocode(q); p ? (setEnd(p.lat, p.lon), map.setView([p.lat,p.lon], Math.max(map.getZoom(),14))) : status("No results.", true); }
+  catch{ status("Search failed.", true); }
+}
+$("searchBtn").addEventListener("click", searchStart);
+$("addr").addEventListener("keydown", e => { if (e.key === "Enter") searchStart(); });
+$("endSearchBtn").addEventListener("click", searchEnd);
+$("endAddr").addEventListener("keydown", e => { if (e.key === "Enter") searchEnd(); });
+$("endToggle").addEventListener("click", () => {
+  $("endRow").style.display = ""; $("endToggle").style.display = "none";
+});
+$("endTapBtn").addEventListener("click", () => { endTapMode = true; status("Tap the map to place the finish pin."); });
+$("endClearBtn").addEventListener("click", clearEnd);
+$("goBtn").addEventListener("click", () => generate(false));
+$("shuffleBtn").addEventListener("click", () => generate(true));
+$("saveBtn").addEventListener("click", saveCurrent);
+
+// ---------------- geo helpers ----------------
+const R = 6371000;
+const rad = d => d * Math.PI/180, deg = r => r * 180/Math.PI;
+function destPoint(lat, lon, brgDeg, distMt){
+  const δ = distMt/R, θ = rad(brgDeg), φ1 = rad(lat), λ1 = rad(lon);
+  const φ2 = Math.asin(Math.sin(φ1)*Math.cos(δ) + Math.cos(φ1)*Math.sin(δ)*Math.cos(θ));
+  const λ2 = λ1 + Math.atan2(Math.sin(θ)*Math.sin(δ)*Math.cos(φ1), Math.cos(δ)-Math.sin(φ1)*Math.sin(φ2));
+  return {lat: deg(φ2), lon: deg(λ2)};
+}
+function distM(a, b){
+  const φ1 = rad(a.lat), φ2 = rad(b.lat), dφ = rad(b.lat-a.lat), dλ = rad(b.lon-a.lon);
+  const h = Math.sin(dφ/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(dλ/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+function bearingDeg(a, b){
+  const φ1 = rad(a.lat), φ2 = rad(b.lat), dλ = rad(b.lon - a.lon);
+  return (deg(Math.atan2(Math.sin(dλ)*Math.cos(φ2),
+    Math.cos(φ1)*Math.sin(φ2) - Math.sin(φ1)*Math.cos(φ2)*Math.cos(dλ))) + 360) % 360;
+}
+function sample(coords, n){
+  if (coords.length <= n) return coords.map(c => ({lat:c[0], lon:c[1]}));
+  const out = [], step = (coords.length-1)/(n-1);
+  for (let i = 0; i < n; i++){ const c = coords[Math.round(i*step)]; out.push({lat:c[0], lon:c[1]}); }
+  return out;
+}
+function gridIndex(pts, th, lat0){
+  const latC = th/111320, lonC = th/(111320*Math.cos(rad(lat0)) || 1);
+  const g = new Map();
+  pts.forEach((p,i) => {
+    const k = Math.floor(p.lat/latC) + "|" + Math.floor(p.lon/lonC);
+    (g.get(k) || g.set(k, []).get(k)).push(i);
+  });
+  return {g, latC, lonC};
+}
+function nearFrac(pts, refPts, th, minIdxGap = -1){
+  if (!pts.length || !refPts.length) return 0;
+  const {g, latC, lonC} = gridIndex(refPts, th, pts[0].lat);
+  let hit = 0;
+  for (let i = 0; i < pts.length; i++){
+    const p = pts[i], ky = Math.floor(p.lat/latC), kx = Math.floor(p.lon/lonC);
+    let found = false;
+    for (let dy = -1; dy <= 1 && !found; dy++)
+      for (let dx = -1; dx <= 1 && !found; dx++){
+        const cell = g.get((ky+dy) + "|" + (kx+dx));
+        if (!cell) continue;
+        for (const j of cell){
+          if (minIdxGap >= 0 && Math.abs(i-j) < minIdxGap) continue;
+          if (distM(p, refPts[j]) < th){ found = true; break; }
+        }
+      }
+    if (found) hit++;
+  }
+  return hit / pts.length;
+}
+const selfOverlap = pts => nearFrac(pts, pts, 25, 12);
+
+// ---------------- Overpass: POIs + busy roads ----------------
+async function fetchArea(searchR){
+  const prefer = preferKeys();
+  const wantInd = chipOn("industrial"), wantBusy = chipOn("busy");
+  const around = `(around:${Math.round(searchR)},${start.lat},${start.lon})`;
+  let q = "[out:json][timeout:25];(";
+  for (const k of prefer) for (const t of TAGS[k]) q += `nwr[${t}]${around};`;
+  if (wantInd) q += `nwr[${TAGS.industrial[0]}]${around};`;
+  q += ");out tags center 600;";
+  if (wantBusy) q += `(${BUSY_QUERY(around)});out geom 300;`;
+  const r = await fetch(OVERPASS, {method:"POST", body:"data="+encodeURIComponent(q),
+    headers:{"Content-Type":"application/x-www-form-urlencoded"}});
+  if (!r.ok) throw new Error("overpass " + r.status);
+  const j = await r.json();
+  const out = {prefer:[], avoid:[], busyPts:[]};
+  for (const el of j.elements || []){
+    if (el.geometry){
+      for (let i = 0; i < el.geometry.length; i += 2)
+        out.busyPts.push({lat: el.geometry[i].lat, lon: el.geometry[i].lon});
+      continue;
+    }
+    const lat = el.lat ?? el.center?.lat, lon = el.lon ?? el.center?.lon;
+    if (lat == null) continue;
+    const cat = classify(el.tags || {});
+    if (!cat) continue;
+    (cat === "industrial" ? out.avoid : out.prefer).push({lat, lon, cat, name: el.tags?.name});
+  }
+  if (out.busyPts.length > 2500) out.busyPts = out.busyPts.filter((_,i) => i % 2 === 0);
+  return out;
+}
+function classify(t){
+  if (t.tourism === "viewpoint") return "viewpoints";
+  if (/^(cafe|ice_cream)$/.test(t.amenity||"")) return "cafes";
+  if (/^(attraction|artwork|museum)$/.test(t.tourism||"") || t.historic) return "landmarks";
+  if (/^(water|beach|coastline)$/.test(t.natural||"") || /^(river|canal|riverbank)$/.test(t.waterway||"")) return "water";
+  if (/^(park|garden|nature_reserve)$/.test(t.leisure||"") || t.landuse === "recreation_ground") return "parks";
+  if (t.landuse === "industrial") return "industrial";
+  return null;
+}
+
+// ---------------- saved routes / history ----------------
+const loadSaved = () => { try{ return JSON.parse(localStorage.getItem(LS_SAVED)) || []; }catch{ return []; } };
+const storeSaved = a => localStorage.setItem(LS_SAVED, JSON.stringify(a));
+function recentBearings(){
+  try{
+    const a = (JSON.parse(localStorage.getItem(LS_BEAR)) || []).filter(x => Date.now()-x.t < 7*864e5);
+    localStorage.setItem(LS_BEAR, JSON.stringify(a));
+    return a.map(x => x.b);
+  }catch{ return []; }
+}
+function rememberBearing(b){
+  try{
+    const a = (JSON.parse(localStorage.getItem(LS_BEAR)) || []).slice(-6);
+    a.push({b, t: Date.now()});
+    localStorage.setItem(LS_BEAR, JSON.stringify(a));
+  }catch{}
+}
+function saveCurrent(){
+  if (!route) return;
+  const def = `${endPt ? "A→B" : "Loop"} ${(route.distM/1000).toFixed(1)} km · ` +
+              new Date().toLocaleDateString(undefined, {month:"short", day:"numeric"});
+  const name = prompt("Name this route:", def);
+  if (name === null) return;
+  const a = loadSaved();
+  a.push({name: name || def, distM: route.distM, t: Date.now(),
+          sample: sample(route.coords, 80).map(p => [ +p.lat.toFixed(5), +p.lon.toFixed(5) ]),
+          coords: route.coords.map(c => [ +c[0].toFixed(5), +c[1].toFixed(5) ])});
+  storeSaved(a); renderSaved();
+  status(`Saved "${name || def}" — future routes will steer around it.`);
+}
+function renderSaved(){
+  const a = loadSaved();
+  $("savedBox").style.display = a.length ? "" : "none";
+  $("savedCount").textContent = a.length;
+  $("savedList").innerHTML = "";
+  a.forEach((s, i) => {
+    const div = document.createElement("div");
+    div.className = "saved-item";
+    div.innerHTML = `<span class="nm">${escapeHtml(s.name)}</span>
+      <span class="meta">${(s.distM/1000).toFixed(1)} km</span>`;
+    const load = document.createElement("button"); load.textContent = "Load";
+    load.onclick = () => {
+      route = {coords: s.coords, distM: s.distM, sample: s.sample.map(p => ({lat:p[0], lon:p[1]}))};
+      setStart(s.coords[0][0], s.coords[0][1], false);
+      drawRoute({prefer:[]}); updateRouteStats(); buildExports();
+      $("saveBtn").style.display = "none"; $("shuffleBtn").style.display = "";
+      status(`Loaded "${s.name}".`);
+    };
+    const del = document.createElement("button"); del.textContent = "✕";
+    del.onclick = () => { const b = loadSaved(); b.splice(i,1); storeSaved(b); renderSaved(); };
+    div.append(load, del);
+    $("savedList").appendChild(div);
+  });
+}
+const escapeHtml = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+// ---------------- candidate scoring ----------------
+function scoreCandidate(cand, targetM, area, savedSamples){
+  const distErr = Math.abs(cand.distM - targetM) / targetM;
+  let s = 3.0 * distErr + 0.8 * selfOverlap(cand.sample);
+  if (chipOn("busy") && area.busyPts.length)
+    s += 1.6 * nearFrac(cand.sample, area.busyPts, 30);
+  if (chipOn("repeats") && savedSamples.length){
+    let sim = 0;
+    for (const sv of savedSamples) sim = Math.max(sim, nearFrac(cand.sample, sv, 40));
+    s += 1.2 * sim;
+  }
+  return s;
+}
+
+// ---------------- OSRM ----------------
+async function osrmRoute(points){
+  const coords = points.map(p => `${p.lon.toFixed(6)},${p.lat.toFixed(6)}`).join(";");
+  const r = await fetch(`${OSRM}${coords}?overview=full&geometries=geojson&continue_straight=false`);
+  const j = await r.json();
+  if (j.code !== "Ok" || !j.routes?.length) throw new Error(j.code || "no route");
+  const cs = j.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+  return {coords: cs, distM: j.routes[0].distance, sample: sample(cs, 140)};
+}
+function pullToPoi(w, preferPois, reach){
+  let nearest = null, nd = Infinity;
+  for (const p of preferPois){ const d = distM(p, w); if (d < nd){ nd = d; nearest = p; } }
+  return (nearest && nd < reach) ? {lat: nearest.lat, lon: nearest.lon} : w;
+}
+
+// ---------------- generation ----------------
+async function generate(shuffle){
+  if (!start) return status("Set a start point first (Locate, search, or tap the map).", true);
+  const targetM = targetKm() * 1000;
+  $("goBtn").disabled = true; $("shuffleBtn").disabled = true;
+  poiLayer.clearLayers();
+  status("Scouting the area…", false, true);
+
+  const searchR = endPt
+    ? Math.max(distM(start, endPt)*0.75 + 500, 1200)
+    : Math.min(2.4 * Math.max(200, targetM/(2*Math.PI)) + 400, 6000);
+  let area = {prefer:[], avoid:[], busyPts:[]};
+  try{ area = await fetchArea(searchR); }
+  catch{ status("Area lookup failed — routing blind.", false, true); }
+
+  const savedSamples = chipOn("repeats")
+    ? loadSaved().map(s => s.sample.map(p => ({lat:p[0], lon:p[1]}))) : [];
+
+  try{
+    const cand = endPt
+      ? await genPointToPoint(targetM, area, savedSamples, shuffle)
+      : await genLoop(targetM, area, savedSamples, shuffle);
+    route = cand;
+    drawRoute(area);
+    updateRouteStats();
+    buildExports();
+    $("shuffleBtn").style.display = $("saveBtn").style.display = "";
+    const tag = READY_MSGS[Math.floor(Math.random()*READY_MSGS.length)];
+    status(`${tag} — ${(route.distM/1000).toFixed(1)} km, finishing ${endPt ? "at your end point" : "back at the start"}.`);
+  }catch(e){
+    status("Routing failed (server busy or unwalkable area). Try again or adjust points.", true);
+  }finally{
+    $("goBtn").disabled = false; $("shuffleBtn").disabled = false;
+  }
+}
+
+// ----- loop mode: several candidate directions, best-scoring wins -----
+async function genLoop(targetM, area, savedSamples, shuffle){
+  let r0 = Math.max(200, targetM/(2*Math.PI));
+  const recent = recentBearings();
+  const dirs = [];
+  for (let i = 0; i < 12; i++){
+    const b = i*30 + Math.random()*10 - 5;
+    const c = destPoint(start.lat, start.lon, b, r0);
+    let s = 0;
+    for (const p of area.prefer) s += Math.exp(-distM(p,c)/r0);
+    for (const p of area.avoid)  s -= 0.8*Math.exp(-distM(p,c)/r0);
+    if (chipOn("busy")) for (let k = 0; k < area.busyPts.length; k += 6)
+      s -= 0.25*Math.exp(-distM(area.busyPts[k],c)/r0);
+    for (const rb of recent){
+      const d = Math.abs(((b-rb)%360+540)%360 - 180);
+      if (d < 45) s -= 1.5*(45-d)/45;
+    }
+    if (shuffle && lastBearing != null){
+      const d = Math.abs(((b-lastBearing)%360+540)%360 - 180);
+      if (d < 60) s -= 3;
+    }
+    dirs.push({b, s});
+  }
+  dirs.sort((a,b) => b.s - a.s);
+  const tries = dirs.slice(0, 3);
+
+  status("Comparing loops…", false, true);
+  let best = null;
+  for (const d of tries){
+    let r = r0, cand = null;
+    for (let iter = 0; iter < 2; iter++){
+      const wps = loopWaypoints(d.b, r, area.prefer);
+      try{ cand = await osrmRoute([start, ...wps, start]); }
+      catch{ break; }
+      const err = Math.abs(cand.distM - targetM)/targetM;
+      if (err < 0.10) break;
+      r *= Math.min(1.6, Math.max(0.6, targetM/cand.distM));
+    }
+    if (!cand) continue;
+    const sc = scoreCandidate(cand, targetM, area, savedSamples);
+    if (!best || sc < best.sc) best = {...cand, sc, bearing: d.b};
+  }
+  if (!best) throw new Error("no loop");
+  lastBearing = best.bearing;
+  rememberBearing(best.bearing);
+  return best;
+}
+function loopWaypoints(bearing, r, preferPois){
+  const centre = destPoint(start.lat, start.lon, bearing, r);
+  const backB = bearingDeg(centre, start);
+  const cw = Math.random() < 0.5 ? 1 : -1;
+  const wps = [];
+  for (let k = 1; k <= 5; k++){
+    let w = destPoint(centre.lat, centre.lon, (backB + cw*k*60 + 360) % 360, r);
+    wps.push(pullToPoi(w, preferPois, Math.max(250, 0.35*r)));
+  }
+  return wps;
+}
+
+// ----- point-to-point mode: bowed detour sized to the target distance -----
+async function genPointToPoint(targetM, area, savedSamples, shuffle){
+  const direct = await osrmRoute([start, endPt]);
+  if (direct.distM >= targetM * 0.95){
+    status("The direct walk already fills your time — taking the straight route.", false, true);
+    return direct;
+  }
+  const lineB = bearingDeg(start, endPt);
+  const d0 = distM(start, endPt);
+  const mid = destPoint(start.lat, start.lon, lineB, d0/2);
+  const sideScore = sgn => {
+    const c = destPoint(mid.lat, mid.lon, (lineB + sgn*90 + 360)%360, d0/3);
+    let s = 0;
+    for (const p of area.prefer) s += Math.exp(-distM(p,c)/(d0/2));
+    for (const p of area.avoid)  s -= 0.8*Math.exp(-distM(p,c)/(d0/2));
+    if (chipOn("busy")) for (let k = 0; k < area.busyPts.length; k += 6)
+      s -= 0.25*Math.exp(-distM(area.busyPts[k],c)/(d0/2));
+    return s;
+  };
+  let side = sideScore(1) >= sideScore(-1) ? 1 : -1;
+  if (shuffle) side = -side;
+
+  status("Sizing the scenic detour…", false, true);
+  let h = Math.max(150, (targetM - direct.distM) * 0.45);
+  let best = null;
+  for (let iter = 0; iter < 3; iter++){
+    const wps = [0.25, 0.5, 0.75].map((f, i) => {
+      const base = destPoint(start.lat, start.lon, lineB, d0*f);
+      const bow = h * (i === 1 ? 1 : 0.72);
+      let w = destPoint(base.lat, base.lon, (lineB + side*90 + 360)%360, bow);
+      return pullToPoi(w, area.prefer, Math.max(200, 0.3*h));
+    });
+    const cand = await osrmRoute([start, ...wps, endPt]);
+    const err = Math.abs(cand.distM - targetM)/targetM;
+    const sc = scoreCandidate(cand, targetM, area, savedSamples);
+    if (!best || sc < best.sc) best = {...cand, sc};
+    if (err < 0.10) break;
+    h *= Math.min(2, Math.max(0.5, (targetM - direct.distM*0.55) / Math.max(1, cand.distM - direct.distM*0.55)));
+  }
+  return best;
+}
+
+// ---------------- render / stats / exports ----------------
+function drawRoute(area){
+  if (routeLine) map.removeLayer(routeLine);
+  routeLine = L.polyline(route.coords, {color:ROUTE_COLOR, weight:5, opacity:.9}).addTo(map);
+  map.fitBounds(routeLine.getBounds(), {padding:[24,24]});
+  let shown = 0;
+  for (const p of area.prefer || []){
+    if (shown >= 25) break;
+    if (nearFrac([p], route.sample, 120) === 0) continue;
+    L.circleMarker([p.lat, p.lon], {radius:5, color:ROUTE_COLOR, fillColor:POI_COLOR, fillOpacity:.9})
+      .bindPopup(p.name || p.cat).addTo(poiLayer);
+    shown++;
+  }
+}
+function updateRouteStats(){
+  if (!route) return;
+  $("actualWrap").style.display = $("timeWrap").style.display = "";
+  $("actualDist").textContent = (route.distM/1000).toFixed(1) + " km";
+  $("actualTime").textContent = Math.round(route.distM/1000 / +$("speed").value * 60) + " min";
+}
+function buildExports(){
+  const c = route.coords;
+  const s = `${c[0][0].toFixed(6)},${c[0][1].toFixed(6)}`;
+  const e = `${c[c.length-1][0].toFixed(6)},${c[c.length-1][1].toFixed(6)}`;
+  const n = Math.min(8, Math.max(3, Math.floor(c.length/40)));
+  const wp = [];
+  for (let i = 1; i <= n; i++){
+    const p = c[Math.floor(i*(c.length-1)/(n+1))];
+    wp.push(`${p[0].toFixed(5)},${p[1].toFixed(5)}`);
+  }
+  $("gmapsLink").href = "https://www.google.com/maps/dir/?api=1"
+    + `&origin=${s}&destination=${e}&travelmode=walking&waypoints=${encodeURIComponent(wp.join("|"))}`;
+  const aTarget = endPt ? e : (m => `${m[0].toFixed(6)},${m[1].toFixed(6)}`)(c[Math.floor(c.length/2)]);
+  $("amapsLink").href = `https://maps.apple.com/?saddr=${s}&daddr=${aTarget}&dirflg=w`;
+  const gpx = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Wander by Aelix Studios" xmlns="http://www.topografix.com/GPX/1/1">\n<trk><name>Wander ${(route.distM/1000).toFixed(1)} km</name><trkseg>\n`
+    + c.map(p => `<trkpt lat="${p[0].toFixed(6)}" lon="${p[1].toFixed(6)}"/>`).join("\n")
+    + "\n</trkseg></trk>\n</gpx>";
+  $("gpxLink").href = URL.createObjectURL(new Blob([gpx], {type:"application/gpx+xml"}));
+  document.querySelectorAll(".export").forEach(a => a.style.display = "block");
+}
+
+// ---------------- boot: saved list + URL params ----------------
+renderSaved();
+(function(){
+  const q = new URLSearchParams(location.search);
+  if (q.get("mins"))  $("mins").value = q.get("mins");
+  if (q.get("speed")) $("speed").value = q.get("speed");
+  refreshTarget();
+  const lat = parseFloat(q.get("lat")), lon = parseFloat(q.get("lon"));
+  if (!isNaN(lat) && !isNaN(lon)){
+    setStart(lat, lon, true);
+    if (q.get("auto") === "1") generate(false);
+  } else if (q.get("auto") === "1"){
+    $("locBtn").click();
+    const watch = setInterval(() => { if (start){ clearInterval(watch); generate(false); } }, 400);
+    setTimeout(() => clearInterval(watch), 12000);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wander | Aelix Studios</title>
+  <meta name="description" content="Wander by Aelix Studios — a walking route generator that designs interesting loops and always gets you home." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot"  id="cursorDot"></div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">Projects</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Journal</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-logo">AELIX<span>.</span></a>
+    <div class="nav-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="https://buymeacoffee.com/aelixstudios" target="_blank" rel="noopener" class="donate-btn" style="padding:10px 20px;font-size:0.62rem;margin-right:16px;">Support us</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div>
+      <span class="page-header-eyebrow reveal">Web App — 02</span>
+      <h1 class="page-header-title reveal">Wan<br>der</h1>
+    </div>
+    <p class="page-header-sub reveal-left">
+      Tell it where you are and how long you want to walk. Wander designs an interesting
+      route through parks, waterways and landmarks &mdash; and always gets you home.
+    </p>
+  </div>
+
+  <!-- Project meta -->
+  <div class="project-meta-bar reveal">
+    <div class="project-meta-item">
+      <span class="project-meta-label">Type</span>
+      <span class="project-meta-value">Web Application</span>
+    </div>
+    <div class="project-meta-item">
+      <span class="project-meta-label">Platform</span>
+      <span class="project-meta-value">Any Browser</span>
+    </div>
+    <div class="project-meta-item">
+      <span class="project-meta-label">Focus</span>
+      <span class="project-meta-value">Walking Routes</span>
+    </div>
+    <div class="project-meta-item">
+      <span class="project-meta-label">Year</span>
+      <span class="project-meta-value">2026</span>
+    </div>
+  </div>
+
+  <!-- Launch CTA -->
+  <section class="cta-section" style="padding-top:64px;padding-bottom:0;border-top:none;">
+    <a href="wander.html" class="cta-btn reveal">
+      Open Wander
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+    <p class="reveal" style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;color:var(--text-dim);margin-top:16px;">
+      FREE &middot; NO ACCOUNT &middot; RUNS IN YOUR BROWSER
+    </p>
+  </section>
+
+  <!-- Project body -->
+  <div class="project-body">
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Overview</span>
+      <div class="reveal">
+        <h2 class="project-section-title">A walk should be an experience, not a chore.</h2>
+        <p class="project-section-body">
+          Wander starts from one input most walking apps ignore: time. Give it a starting point
+          and how long you want to be out &mdash; it converts your pace into a distance and designs
+          a route to match. Loops always return to your exact starting point, or you can choose a
+          different finish and Wander sizes a scenic detour so you arrive right on schedule.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Intelligence</span>
+      <div class="reveal">
+        <h2 class="project-section-title">Interesting by design.</h2>
+        <p class="project-section-body">
+          Before drawing a single line, Wander surveys the area around you using OpenStreetMap data:
+          parks, waterways, landmarks, caf&eacute;s and viewpoints you have asked it to find, and the
+          things you have asked it to avoid &mdash; motorways, dual carriageways, industrial estates.
+          It then compares several candidate routes and scores each on distance accuracy, scenery,
+          road safety and novelty, so you get the best walk available rather than the first one it found.
+        </p>
+        <p class="project-section-body">
+          Wander also remembers. Saved routes are kept on your device, and the generator actively
+          steers new walks away from paths you have already taken &mdash; the same neighbourhood
+          keeps producing new ground.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Navigation</span>
+      <div class="reveal">
+        <h2 class="project-section-title">Your maps app takes it from here.</h2>
+        <p class="project-section-body">
+          Every generated route exports in one tap: open it in Google Maps with waypoints, hand the
+          destination to Apple Maps, or download a GPX file that any navigation or fitness app can
+          follow exactly. Wander plans the walk; the tools you already use guide it.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Privacy</span>
+      <div class="reveal">
+        <h2 class="project-section-title">Everything stays on your device.</h2>
+        <p class="project-section-body">
+          Wander has no accounts, no tracking and no server of ours behind it. Your location is used
+          only in your browser to plan the route, saved walks live in your device's local storage,
+          and route calculations are made through the OpenStreetMap ecosystem's public services.
+          Close the tab and Wander knows nothing about you.
+        </p>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <span class="project-section-label reveal">Origin</span>
+      <div class="reveal">
+        <h2 class="project-section-title">Sparked by a friend.</h2>
+        <p class="project-section-body">
+          Wander began as an idea from Kendra &mdash; that a walk shouldn't need a destination to be
+          worth taking, just the time you're willing to give it. This one is hers as much as ours.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Back / CTA -->
+  <section class="cta-section">
+    <a href="projects.html" class="back-link reveal">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+      </svg>
+      All work
+    </a>
+    <h2 class="cta-title reveal">Start a <em>conversation.</em></h2>
+    <a href="mailto:admin@aelixstudios.com" class="cta-btn reveal">
+      admin@aelixstudios.com
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <a href="index.html" class="footer-logo">AELIX<span>.</span></a>
+    <div class="footer-links">
+      <a href="projects.html">Projects</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Journal</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Aelix Studios. All rights reserved.</span>
+  </footer>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>
